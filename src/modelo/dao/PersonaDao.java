@@ -2,11 +2,13 @@ package modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
-import modelo.vo.PersonaVo;
+import VO.Nacimiento;
+import VO.PersonaVo;
 
 public class PersonaDao {
 
@@ -30,7 +32,7 @@ public class PersonaDao {
 
 		try {
 			preStatement = connection.prepareStatement(consulta);
-			preStatement.setLong(1, miPersona.getIdPersona());
+			preStatement.setLong(1, miPersona.getIdPesona());
 			preStatement.setString(2, miPersona.getNombre());
 			preStatement.setString(3, miPersona.getProfesion());
 			preStatement.setString(4, miPersona.getTelefono());
@@ -64,7 +66,7 @@ public class PersonaDao {
 		ResultSet result=null;
 		
 		PersonaVo miPersona=null;
-		NacimientoVo miNacimiento=null;
+		Nacimiento miNacimiento=null;
 		
 		connection=miConexion.getConnection();
 		
@@ -79,13 +81,13 @@ public class PersonaDao {
 				
 				while(result.next()==true){
 					miPersona=new PersonaVo();
-					miPersona.setIdPersona(result.getLong("id_persona"));
+					miPersona.setIdPesona(result.getLong("id_persona"));
 					miPersona.setNombre(result.getString("nombre_persona"));
 					miPersona.setProfesion(result.getString("profesion_persona"));
 					miPersona.setTelefono(result.getString("telefono_persona"));
 					miPersona.setTipo(result.getInt("tipo_persona"));
 					
-					miNacimiento =new NacimientoVo();
+					miNacimiento =new Nacimiento();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
 					miPersona.setNacimiento(miNacimiento);		
 				}		
