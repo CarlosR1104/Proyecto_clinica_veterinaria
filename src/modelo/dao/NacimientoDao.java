@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import VO.Nacimiento;
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
-import modelo.vo.NacimientoVo;
 
 public class NacimientoDao {
 	private Coordinador miCoordinador;
@@ -18,7 +18,7 @@ public class NacimientoDao {
 		this.miCoordinador=miCoordinador;
 	}
 	
-	public Long registrarNacimiento(NacimientoVo miNacimiento) {
+	public Long registrarNacimiento(Nacimiento miNacimiento) {
 
 		Long idNacimiento=null;
 		Connection connection = null;
@@ -60,7 +60,7 @@ public class NacimientoDao {
 		return idNacimiento;
 		
 	}
-	public NacimientoVo consultarNacimiento(Long idNacimiento) {
+	public Nacimiento consultarNacimiento(Long idNacimiento) {
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;
@@ -68,7 +68,7 @@ public class NacimientoDao {
 				
 		connection=miConexion.getConnection();
 		
-		NacimientoVo miNacimiento = null;
+		Nacimiento miNacimiento = null;
 		
 		String consulta="SELECT * FROM nacimiento where id_nacimiento= ? ";
 		
@@ -80,7 +80,7 @@ public class NacimientoDao {
 				result=statement.executeQuery();
 				
 				while(result.next()==true){
-					miNacimiento=new NacimientoVo();
+					miNacimiento=new Nacimiento();
 					miNacimiento.setIdNacimiento(result.getLong("id_nacimiento"));
 					miNacimiento.setCiudadNacimiento(result.getString("ciudad_nacimiento"));
 					miNacimiento.setDepartamentoNacimiento(result.getString("departamento_nacimiento"));

@@ -16,6 +16,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import VO.PersonaVo;
+import controlador.Coordinador;
+
 import javax.swing.JSeparator;
 
 public class RegistrarPersonasGui extends JDialog implements ActionListener{
@@ -35,6 +39,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	private JButton btnAgregarMascotas;
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
+	private Coordinador miCoordinador;
 
 
 	/**
@@ -201,6 +206,20 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 		if (e.getSource()==btnAgregarMascotas) {
 			RegistrarMascotasGui ventanaGestionMascotas=new RegistrarMascotasGui(null, true,txtDocumento.getText());
 			ventanaGestionMascotas.setVisible(true);
+		}if (e.getSource()==btnRegistrar) {
+			PersonaVo miPersona = new PersonaVo();
+			miPersona.setNombre(txtNombre.getText());
+			miPersona.setTelefono(txtTelefono.getText());
+			miPersona.setTipo(Integer.parseInt(txtTipo.getText()));
+			miPersona.setProfesion(txtProfesion.getText());
+			
+			miCoordinador.registrarPersonas(miPersona);
+			
 		}
+	}
+
+
+	public void setCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador= miCoordinador;
 	}
 }
