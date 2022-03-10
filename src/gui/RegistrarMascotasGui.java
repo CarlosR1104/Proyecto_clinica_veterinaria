@@ -16,6 +16,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import controlador.Coordinador;
+
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -28,6 +31,7 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 	private JTextField txtTelefono;
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
+	private Coordinador miCoordinador;
 
 
 	/**
@@ -131,5 +135,10 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public void setCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador= miCoordinador;
 	}
 }

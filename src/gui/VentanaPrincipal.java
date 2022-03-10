@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controlador.Coordinador;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -37,6 +40,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenuItem itemActualizarProductos;
 	private JMenuItem itemConsultaProductos;
 	private JMenuItem itemRegistroProductos;
+	private Coordinador miCoordinador;
 
 	/**
 	 * Create the frame.
@@ -137,16 +141,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==itemRegistrarPersonas) {
-			RegistrarPersonasGui RegistrarPersonas=new RegistrarPersonasGui(this,true);
-			RegistrarPersonas.setVisible(true);
+			miCoordinador.mostrarRegistroPersonas();
 		}
 		if (e.getSource()==itemRegistrarMascotas) {
-			RegistrarMascotasGui RegistrarMascotas=new RegistrarMascotasGui(this, true,"");
-			RegistrarMascotas.setVisible(true);
+			miCoordinador.mostrarRegistroMascotas();
 		}
 		if (e.getSource()==itemRegistroProductos) {
-			RegistrarProductosGui RegistrarProductos=new RegistrarProductosGui(this, true);
-			RegistrarProductos.setVisible(true);
+			miCoordinador.mostrarRegistroProductos();
 		}
+	}
+
+	public void setCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador= miCoordinador;
 	}
 }
