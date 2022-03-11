@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
@@ -18,7 +19,7 @@ public class PersonaDao {
 		this.miCoordinador=miCoordinador;
 	}
 
-	public String registrarPersona(PersonaVo miPersona) {
+	public String registrarPersona(PersonaVo miPersona) throws SQLException {
 		
 		String resultado = "";
 
@@ -53,13 +54,18 @@ public class PersonaDao {
 			resultado = "No se pudo registrar la persona";
 		}
 		finally {
+			
+			preStatement.close();
+			connection.close();
 			conexion.desconectar();
+
 		}
+		
 
 		return resultado;
 		
 	}
-	public PersonaVo consultarPersona(Long idDocumento) {
+	public PersonaVo consultarPersona(Long idDocumento) throws SQLException {
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;
@@ -98,8 +104,75 @@ public class PersonaDao {
 		} catch (SQLException e) {
 			System.out.println("Error en la consulta de la persona: "+e.getMessage());
 		}
+		finally {
+			result.close();
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+
+		}
 			return miPersona;
 	}
+	
+	
+	
+	
+	public ArrayList<PersonaVo> consultarListaPersona() throws SQLException {
+		ArrayList<PersonaVo> listaPersona = new ArrayList<PersonaVo>();
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		PersonaVo miPersona=null;
+		Nacimiento miNacimiento=null;
+				
+		connection=miConexion.getConnection();
+		
+		String consulta = "SELECT id_persona,nombre_persona,profesion_persona,telefono_persona,tipo_persona,nacimiento_id"+" FROM persona";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miPersona=new PersonaVo();
+					miPersona.setIdPesona(result.getLong("id_persona"));
+					miPersona.setNombre(result.getString("nombre_persona"));
+					miPersona.setProfesion(result.getString("profesion_persona"));
+					miPersona.setTelefono(result.getString("telefono_persona"));
+					miPersona.setTipo(result.getInt("tipo_persona"));
+					
+					miNacimiento =new Nacimiento();
+					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
+					miPersona.setNacimiento(miNacimiento);	
+					
+					listaPersona.add(miPersona);
+					
+				}		
+				   miConexion.desconectar();
+			}else{
+				miPersona=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la persona: "+e.getMessage());
+		}
+		finally {
+			result.close();
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+
+		}
+			return listaPersona;
+	}
+	
+	
+	
+	
+	
+	
 
 }
 
