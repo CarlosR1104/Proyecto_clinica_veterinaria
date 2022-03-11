@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import VO.PersonaVo;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
@@ -74,5 +76,16 @@ public class Coordinador {
 	
 	public void registrarPersonas(PersonaVo miPersona) {
 		miPersonaDao.registrarPersona(miPersona);
+	}
+	
+	
+	public ArrayList<PersonaVo> consultar(PersonaVo miPersona) {
+		try {
+			return miPersonaDao.consultarListaPersona();
+		} catch (Exception e) {
+			return null;
+		}
+		
+		
 	}
 }
