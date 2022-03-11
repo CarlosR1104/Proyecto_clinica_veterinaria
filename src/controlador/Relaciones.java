@@ -4,11 +4,8 @@ import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaPrincipal;
-import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
-import modelo.dao.PersonaProductoDao;
-import modelo.dao.ProductoDao;
 
 public class Relaciones {
 

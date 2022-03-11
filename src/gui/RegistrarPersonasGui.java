@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
@@ -214,12 +213,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 			miPersona.setTipo(Integer.parseInt(txtTipo.getText()));
 			miPersona.setProfesion(txtProfesion.getText());
 			
-			try {
-				miCoordinador.registrarPersonas(miPersona);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			miCoordinador.registrarPersonas(miPersona);
 			
 		}
 	}
