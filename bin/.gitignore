@@ -1,6 +1,4 @@
-/.classpath
-/.project
-/clases/
-/gui/
-/images/
+/modelo/
 /VO/
+/controlador/
+/gui/

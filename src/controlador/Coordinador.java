@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import VO.PersonaVo;
@@ -7,8 +8,11 @@ import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaPrincipal;
+import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.PersonaProductoDao;
+import modelo.dao.ProductoDao;
 
 public class Coordinador {
 
@@ -71,7 +75,7 @@ public class Coordinador {
 		miRegistrarProductosGui.setVisible(true);
 	}
 	
-	public void registrarPersonas(PersonaVo miPersona) {
+	public void registrarPersonas(PersonaVo miPersona) throws SQLException {
 		miPersonaDao.registrarPersona(miPersona);
 	}
 	

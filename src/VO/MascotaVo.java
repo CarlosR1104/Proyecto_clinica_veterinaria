@@ -7,6 +7,7 @@ public class MascotaVo {
 	private String raza;
 	private String colorMascota;
 	private String sexo;
+	private PersonaVo idPersona;
 
 	public MascotaVo() {
 		
@@ -68,6 +69,15 @@ public class MascotaVo {
 				+"raza=" + raza + ", colorMascota="
 				+ colorMascota + ", sexo=" + sexo + "]";
 	}
+
+	public PersonaVo getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(PersonaVo miPersona) {
+		this.idPersona = miPersona;
+	}
+	
 	
 
 }
