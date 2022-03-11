@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import VO.PersonaVo;
@@ -74,7 +75,7 @@ public class Coordinador {
 		miRegistrarProductosGui.setVisible(true);
 	}
 	
-	public void registrarPersonas(PersonaVo miPersona) {
+	public void registrarPersonas(PersonaVo miPersona) throws SQLException {
 		miPersonaDao.registrarPersona(miPersona);
 	}
 	
