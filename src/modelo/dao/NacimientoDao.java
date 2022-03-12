@@ -18,32 +18,32 @@ public class NacimientoDao {
 		this.miCoordinador=miCoordinador;
 	}
 	
-	public Long registrarNacimiento(Nacimiento miNacimiento) {
-
+	public Long registrarNacimiento(Nacimiento miNacimiento) throws SQLException {
+		
+		Statement st = null;
 		Long idNacimiento=null;
 		Connection connection = null;
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
 
 		ResultSet result=null;
-		
 		connection = conexion.getConnection();
-		String consulta = "INSERT INTO nacimiento (ciudad_nacimiento,departamento_nacimiento,fecha_nacimiento,pais_nacimiento)"
-				+ "  VALUES (?,?,?,?)";
+		String consulta = "INSERT INTO nacimiento (ciudad_nacimiento,departamento_nacimiento,fecha_nacimiento,pais_nacimiento) "
+				+ " VALUES (?,?,?,?)";
 
 		try {
-			preStatement = connection.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);
+			preStatement = connection.prepareStatement(consulta,st.RETURN_GENERATED_KEYS);
 			preStatement.setString(1, miNacimiento.getCiudadNacimiento());
 			preStatement.setString(2, miNacimiento.getDepartamentoNacimiento());
 			preStatement.setString(3, miNacimiento.getFechaNacimiento().toString());
 			preStatement.setString(4, miNacimiento.getPaisNacimiento());
 			preStatement.execute();
 			
-			result=preStatement.getGeneratedKeys();
+			result = preStatement.getGeneratedKeys();
 			if (result.next()) {
 				idNacimiento=result.getLong(1);
 			}
-
+			
 		} catch (SQLException e) {
 			System.out.println("No se pudo registrar los datos del nacimiento: " + e.getMessage());
 			e.printStackTrace();
@@ -54,9 +54,12 @@ public class NacimientoDao {
 			idNacimiento = null;
 		}
 		finally {
+			result.close();
+			preStatement.close();
 			conexion.desconectar();
+			
 		}
-		System.out.println("El ID del Nacimiento es: "+idNacimiento);
+		
 		return idNacimiento;
 		
 	}

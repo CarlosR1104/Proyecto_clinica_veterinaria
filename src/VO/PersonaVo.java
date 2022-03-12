@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonaVo {
-	
+
 	private long idPesona;
 	private String nombre;
 	private String telefono;
@@ -14,11 +14,9 @@ public class PersonaVo {
 	private Nacimiento nacimiento;
 	private List<MascotaVo> listaMascotas;
 
-
 	public PersonaVo() {
-		this.listaMascotas=new ArrayList<MascotaVo>();
+		this.listaMascotas = new ArrayList<MascotaVo>();
 	}
-
 
 	public PersonaVo(long idPesona, String nombre, String telefono, String profesion, int tipo, Nacimiento nacimiento) {
 		super();
@@ -31,86 +29,65 @@ public class PersonaVo {
 		this.listaMascotas = new ArrayList<MascotaVo>();
 	}
 
-
 	public long getIdPesona() {
 		return idPesona;
 	}
-
 
 	public void setIdPesona(long idPesona) {
 		this.idPesona = idPesona;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
 	public String getTelefono() {
 		return telefono;
 	}
-
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
-
 	public String getProfesion() {
 		return profesion;
 	}
-
 
 	public void setProfesion(String profesion) {
 		this.profesion = profesion;
 	}
 
-
 	public int getTipo() {
 		return tipo;
 	}
-
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 
-
 	public Nacimiento getNacimiento() {
 		return nacimiento;
 	}
-
 
 	public void setNacimiento(Nacimiento nacimiento) {
 		this.nacimiento = nacimiento;
 	}
 
-
 	public List<MascotaVo> getListaMascotas() {
 		return listaMascotas;
 	}
-
 
 	public void setListaMascotas(List<MascotaVo> listaMascotas) {
 		this.listaMascotas = listaMascotas;
 	}
 
-
 	@Override
 	public String toString() {
-		System.out.println("ingresa");
-		return "PersonaVo [idPesona=" + idPesona +"," 
-				+"nombre=" + nombre + ", telefono=" + telefono + 
-				", profesion="+ profesion + ", tipo=" + tipo +","
-							+" nacimiento=" + nacimiento + "]";
+		return "PersonaVo (idPersona=" + idPesona + "," + "nombre=" + nombre + ", telefono=" + telefono + ", profesion="
+				+ profesion + ", tipo=" + tipo + "," + " nacimiento=" + nacimiento ;
 	}
-	
-	
-
 }

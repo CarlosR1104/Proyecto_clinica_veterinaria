@@ -5,18 +5,24 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
+import VO.Nacimiento;
 import VO.PersonaVo;
 import controlador.Coordinador;
 
@@ -40,14 +46,16 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
-
-
+	MaskFormatter mascara1,mascara2,mascara3;
+	Nacimiento miNacimiento;
+	
 	/**
 	 * Create the dialog.
 	 * @param b 
 	 * @param ventanaPrincipal 
+	 * @throws ParseException 
 	 */
-	public RegistrarPersonasGui(VentanaPrincipal ventanaPrincipal, boolean modal) {
+	public RegistrarPersonasGui(VentanaPrincipal ventanaPrincipal, boolean modal) throws ParseException {
 		super(ventanaPrincipal,modal);
 		setSize( 624, 423);
 		setLocationRelativeTo(null);
@@ -58,7 +66,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	}
 
 
-	private void iniciarComponentes() {
+	private void iniciarComponentes() throws ParseException {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -130,10 +138,20 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 		lblFecha.setBounds(10, 29, 122, 14);
 		panelNacimiento.add(lblFecha);
 		
+		try {
+			mascara1 = new MaskFormatter("##");
+			mascara2 = new MaskFormatter("##");
+			mascara3 = new MaskFormatter("####");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		txtDia = new JTextField();
 		txtDia.setBounds(142, 28, 25, 20);
 		panelNacimiento.add(txtDia);
 		txtDia.setColumns(10);
+		
 		
 		txtMes = new JTextField();
 		txtMes.setColumns(10);
@@ -207,15 +225,28 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 			RegistrarMascotasGui ventanaGestionMascotas=new RegistrarMascotasGui(null, true,txtDocumento.getText());
 			ventanaGestionMascotas.setVisible(true);
 		}if (e.getSource()==btnRegistrar) {
+			
+			miNacimiento = new Nacimiento();
+			
+			LocalDate date = LocalDate.of(Integer.parseInt(txtAnio.getText()), Integer.parseInt(txtMes.getText()),Integer.parseInt(txtDia.getText()));
+			miNacimiento.setCiudadNacimiento(txtCiudad.getText());
+			miNacimiento.setDepartamentoNacimiento(txtDepartamento.getText());
+			miNacimiento.setFechaNacimiento(date);
+			miNacimiento.setPaisNacimiento(txtPais.getText());
+			
+			long id = miCoordinador.registrarNacimiento(miNacimiento);
+			miNacimiento.setIdNacimiento(id);
+			
 			PersonaVo miPersona = new PersonaVo();
+			miPersona.setIdPesona(Long.parseLong(txtDocumento.getText()));
 			miPersona.setNombre(txtNombre.getText());
 			miPersona.setTelefono(txtTelefono.getText());
 			miPersona.setTipo(Integer.parseInt(txtTipo.getText()));
 			miPersona.setProfesion(txtProfesion.getText());
+			miPersona.setNacimiento(miNacimiento);
 			
 			miCoordinador.registrarPersonas(miPersona);
-			
-		}
+		}		
 	}
 
 
