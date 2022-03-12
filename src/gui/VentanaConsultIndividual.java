@@ -1,14 +1,22 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaConsultIndividual extends JDialog {
+import VO.PersonaVo;
+import controlador.Coordinador;
+
+public class VentanaConsultIndividual extends JDialog implements ActionListener {
 	private JTextField txtDocumento;
 	private JButton btnConsultar;
 	private JPanel panel;
 	private JTextArea area;
 	private JScrollPane scroll;
+	
+	Coordinador miCoordinador;
 	
 	
 	public VentanaConsultIndividual() {
@@ -40,6 +48,7 @@ public class VentanaConsultIndividual extends JDialog {
 		
 		btnConsultar=new JButton("Buscar");
 		btnConsultar.setBounds(330,40,90,24);
+		btnConsultar.addActionListener(this);
 		panel.add(btnConsultar);
 		
 		area=new JTextArea();
@@ -51,8 +60,19 @@ public class VentanaConsultIndividual extends JDialog {
 		
 		
 	}
-	public static void main(String[] args) {
-		VentanaConsultIndividual v =new VentanaConsultIndividual();
-		v.setVisible(true);
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnConsultar) {
+			PersonaVo p=miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
+			area.setText(""+p);
+		}
+		
 	}
+
+	public void setMiCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador = miCoordinador;
+	}
+	
 }
