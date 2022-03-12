@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import VO.Nacimiento;
 import VO.PersonaVo;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
@@ -51,23 +52,11 @@ public class Coordinador {
 	public void setPersonaDao(PersonaDao miPersonaDao) {
 		this.miPersonaDao=miPersonaDao;
 	}
-/**
-	public void setMascotaDao(MascotaDao miMascotaDao) {
-		this.miMascotaDao=miMascotaDao;
-	}
 
 	public void setNacimientoDao(NacimientoDao miNacimientoDao) {
 		this.miNacimientoDao=miNacimientoDao;
 	}
-
-	public void setProductoDao(ProductoDao miProductoDao) {
-		this.miProductoDao=miProductoDao;
-	}
-
-	public void setPersonaProductoDao(PersonaProductoDao miPersonaProductoDao) {
-		this.miPersonaProductoDao=miPersonaProductoDao;
-	}
-	**/
+	
 	public void mostrarRegistroPersonas() {
 		miRegistrarPersonasGui.setVisible(true);
 	}
@@ -84,19 +73,28 @@ public class Coordinador {
 		miVentanaConsultIndividual.setVisible(true);
 	}
 	
-	//public void registrarPersonas(PersonaVo miPersona) {
-		//miPersonaDao.registrarPersona(miPersona);
-	//}
-	
 	public String registrarPersonas(PersonaVo p) {
+		String registrar="";
 		try {
-			String registrar=miPersonaDao.registrarPersona(p);
-			return registrar;
+			
+			registrar=miPersonaDao.registrarPersona(p);
+			
 		} catch (Exception e) {
-			return null;
+			registrar = "NO SE HA REGISTRADO";
 		}
+		return registrar;
 		
+	}
 		
+	public long registrarNacimiento(Nacimiento n) {
+		Long f = null;	
+		try {
+			
+			 f = miNacimientoDao.registrarNacimiento(n);
+		} catch (Exception e) {
+			f =  null;
+		}	
+		return f;
 	}
 	
 	public ArrayList<PersonaVo> consultar(PersonaVo miPersona) {

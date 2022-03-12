@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import controlador.Coordinador;
@@ -14,7 +15,7 @@ import VO.PersonaVo;
 public class PersonaDao {
 
 	private Coordinador miCoordinador;
-
+	Nacimiento n = new Nacimiento();
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}
@@ -22,7 +23,7 @@ public class PersonaDao {
 	public String registrarPersona(PersonaVo miPersona) throws SQLException {
 		
 		String resultado = "";
-
+		
 		Connection connection = null;
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
@@ -30,7 +31,8 @@ public class PersonaDao {
 		connection = conexion.getConnection();
 		String consulta = "INSERT INTO persona (id_persona,nombre_persona,profesion_persona,telefono_persona,tipo_persona,nacimiento_id)"
 				+ "  VALUES (?,?,?,?,?,?)";
-
+		
+		
 		try {
 			preStatement = connection.prepareStatement(consulta);
 			preStatement.setLong(1, miPersona.getIdPesona());
@@ -39,12 +41,12 @@ public class PersonaDao {
 			preStatement.setString(4, miPersona.getTelefono());
 			preStatement.setInt(5, miPersona.getTipo());
 			preStatement.setLong(6, miPersona.getNacimiento().getIdNacimiento());
+			
 			preStatement.execute();
 
 			resultado = "ok";
 
 		}catch (SQLException e) {
-			System.out.println("No se pudo registrar la persona, verifique el documento no exista: " + e.getMessage());
 			e.printStackTrace();
 			resultado = "No se pudo ";
 		}
@@ -96,13 +98,13 @@ public class PersonaDao {
 					miNacimiento =new Nacimiento();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
 					miPersona.setNacimiento(miNacimiento);		
+					
 				}		
 				 
 			}else{
 				miPersona=null;
 			}			   
 		} catch (SQLException e) {
-			System.out.println("Error en la consulta de la persona: "+e.getMessage());
 		}
 		finally {
 			result.close();
@@ -146,7 +148,7 @@ public class PersonaDao {
 					
 					miNacimiento =new Nacimiento();
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
-					miPersona.setNacimiento(miNacimiento);	
+					//miPersona.setNacimiento(miNacimiento);	
 					
 					listaPersona.add(miPersona);
 					

@@ -66,11 +66,11 @@ public class Nacimiento {
 
 	@Override
 	public String toString() {
-		String cad="Nacimiento [idNacimiento=" + idNacimiento +","
-				+ " fechaNacimiento=" + fechaNacimiento
-				+ ", ciudadNacimiento=" + ciudadNacimiento +","
-				+ "\n departamentoNacimiento=" + departamentoNacimiento
-				+ ", paisNacimiento=" + paisNacimiento + "]";
+		String cad="Nacimiento [idNacimiento=" + getIdNacimiento() +","
+				+ " fechaNacimiento=" + getFechaNacimiento()
+				+ ", ciudadNacimiento=" + getCiudadNacimiento() +","
+				+ "\n departamentoNacimiento=" + getDepartamentoNacimiento()
+				+ ", paisNacimiento=" + getPaisNacimiento() + "]";
 	
 	return cad;
 	}

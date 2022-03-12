@@ -1,5 +1,7 @@
 package controlador;
 
+import java.text.ParseException;
+
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -10,7 +12,7 @@ import modelo.dao.PersonaDao;
 
 public class Relaciones {
 
-	public Relaciones() {
+	public Relaciones() throws ParseException {
 		
 		
 		//Se declaran las clases que van a representar instancias unicas
@@ -54,7 +56,7 @@ public class Relaciones {
 		miCoordinador.setRegistrarProductosGui(miRegistrarProductosGui);
 		miCoordinador.setPersonaDao(miPersonaDao);
 		//miCoordinador.setMascotaDao(miMascotaDao);
-		//miCoordinador.setNacimientoDao(miNacimientoDao);
+		miCoordinador.setNacimientoDao(miNacimientoDao);
 		//miCoordinador.setProductoDao(miProductoDao);
 		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
 	
