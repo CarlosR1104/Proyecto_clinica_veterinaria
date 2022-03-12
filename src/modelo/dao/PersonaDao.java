@@ -46,7 +46,7 @@ public class PersonaDao {
 		}catch (SQLException e) {
 			System.out.println("No se pudo registrar la persona, verifique el documento no exista: " + e.getMessage());
 			e.printStackTrace();
-			resultado = "No se pudo registrar la persona";
+			resultado = "No se pudo ";
 		}
 		catch (Exception e) {
 			System.out.println("No se pudo registrar la persona: " + e.getMessage());
@@ -65,7 +65,7 @@ public class PersonaDao {
 		return resultado;
 		
 	}
-	public PersonaVo consultarPersona(Long idDocumento) throws SQLException {
+	public PersonaVo consultarPersona(long idDocumento) throws SQLException {
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;
@@ -97,7 +97,7 @@ public class PersonaDao {
 					miNacimiento.setIdNacimiento(Long.parseLong(result.getString("nacimiento_id")));
 					miPersona.setNacimiento(miNacimiento);		
 				}		
-				   miConexion.desconectar();
+				 
 			}else{
 				miPersona=null;
 			}			   
