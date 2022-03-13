@@ -17,6 +17,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import VO.ProductoVo;
 import controlador.Coordinador;
 
 import javax.swing.JSeparator;
@@ -31,7 +32,6 @@ public class RegistrarProductosGui extends JDialog implements ActionListener{
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
-
 
 	/**
 	 * Create the dialog.
@@ -104,8 +104,12 @@ public class RegistrarProductosGui extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == btnRegistrar) {
+			ProductoVo miProductoVo = new ProductoVo();
+			miProductoVo.setNombreProducto(txtNombre.getText());
+			miProductoVo.setPrecioProducto(Double.parseDouble(txtPrecio.getText()));
+			miCoordinador.registrarProductos(miProductoVo);
+		}
 	}
 
 
