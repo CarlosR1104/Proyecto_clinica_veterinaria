@@ -27,20 +27,19 @@ public class MascotaDao {
 		Connection connection = null;
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
-
+		Statement s=null;
 		ResultSet result = null;
-
 		connection = conexion.getConnection();
 		String consulta = "INSERT INTO mascotas (color,nombre,raza,sexo,persona_id)"
 				+ "  VALUES (?,?,?,?,?)";
 
 		try {
-			preStatement = connection.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
+			preStatement = connection.prepareStatement(consulta, s.RETURN_GENERATED_KEYS);
 			preStatement.setString(1, miMascota.getColorMascota());
 			preStatement.setString(2, miMascota.getNombre());
 			preStatement.setString(3, miMascota.getRaza());
 			preStatement.setString(4, miMascota.getSexo());
-			preStatement.setInt(5, (int) miPersona.getIdPesona());
+			preStatement.setLong(5, miMascota.getPersona().getIdPesona());
 			preStatement.execute();
 
 			result = preStatement.getGeneratedKeys();
@@ -76,7 +75,7 @@ public class MascotaDao {
 		
 		connection=miConexion.getConnection();
 		
-		String consulta="SELECT * FROM mascota where id_mascota= ? ";
+		String consulta="SELECT * FROM mascotas where id_mascota= ? ";
 		
 		try {
 			if (connection!=null) {
@@ -94,8 +93,8 @@ public class MascotaDao {
 					miMascota.setSexo(result.getString("sexo"));
 					
 					miPersona = new PersonaVo();
-					miPersona.setIdPesona(Long.parseLong(result.getString("id_persona")));
-					miMascota.setIdPersona(miPersona);		
+					miPersona.setIdPesona(Long.parseLong(result.getString("persona_id")));
+					miMascota.setPersona(miPersona);		
 				}		
 				   miConexion.desconectar();
 			}else{
@@ -152,28 +151,26 @@ public class MascotaDao {
 	public String borrarMascota(Long idMascota) {
 		Connection connection = null;
 		Conexion miConexion = new Conexion();
-		PreparedStatement statement = null;
-		ResultSet result = null;
-
+		PreparedStatement st = null;
 		connection = miConexion.getConnection();
 		
+		ResultSet result = null;
 		String resultado = "";
 		
-		MascotaVo miMascota= null;
-
-		String consulta = "DELETE FROM mascotas where id_mascota= ? ";
-
+		
 		try {
 			if (connection != null) {
-				statement = connection.prepareStatement(consulta);
-				statement.setLong(1, idMascota);
-
-				result = statement.executeQuery();
-				resultado = "ok";
-				miConexion.desconectar();
+				
+				String ejecutar = "DELETE FROM mascotas WHERE id_mascota = ?";
+				
+				st = connection.prepareStatement(ejecutar);
+				st.setLong(1,idMascota);
+				st.executeUpdate();
+				
+				resultado = "Eliminado DAO";
 			}
 		} catch (SQLException e) {
-			System.out.println("Error en la eliminacion de la mascota: " + e.getMessage());
+			System.out.println("Error en la eliminacion de la mascota sql: " + e.getMessage());
 			resultado = "error";
 		} catch (Exception e) {
 			System.out.println("Error en la eliminacion de la mascota: " + e.getMessage());

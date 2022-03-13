@@ -6,7 +6,9 @@ import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaConsultIndividual;
+import gui.VentanaEliminar;
 import gui.VentanaPrincipal;
+import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
 
@@ -19,13 +21,14 @@ public class Relaciones {
 		
 		VentanaPrincipal miVentanaPrincipal;
 		VentanaConsultIndividual miVentanaConsultIndividual;
+		VentanaEliminar miVentanaEliminar;
 		RegistrarPersonasGui miRegistrarPersonasGui;
 		RegistrarMascotasGui miRegistrarMascotasGui;
 		RegistrarProductosGui miRegistrarProductosGui;
 		Coordinador miCoordinador;
 		PersonaDao miPersonaDao;
 		NacimientoDao miNacimientoDao;
-		//MascotaDao miMascotaDao;
+		MascotaDao miMascotaDao;
 		//ProductoDao miProductoDao;
 		//PersonaProductoDao miPersonaProductoDao;
 		
@@ -34,13 +37,14 @@ public class Relaciones {
 		
 		miVentanaPrincipal= new VentanaPrincipal();
 		miVentanaConsultIndividual=new VentanaConsultIndividual();
+		miVentanaEliminar = new VentanaEliminar();
 		miRegistrarPersonasGui= new RegistrarPersonasGui(miVentanaPrincipal, true);
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
 		
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
-		//miMascotaDao= new MascotaDao();
+		miMascotaDao= new MascotaDao();
 		miNacimientoDao= new NacimientoDao();
 		//miProductoDao= new ProductoDao();
 		//miPersonaProductoDao= new PersonaProductoDao();
@@ -51,11 +55,12 @@ public class Relaciones {
 		
 		miCoordinador.setVentanaPrincipal(miVentanaPrincipal);
 		miCoordinador.setMiVentanaConsultIndividual(miVentanaConsultIndividual);
+		miCoordinador.setVentanaEliminar(miVentanaEliminar);
 		miCoordinador.setRegistrarPersonasGui(miRegistrarPersonasGui);
 		miCoordinador.setRegistrarMascotasGui(miRegistrarMascotasGui);
 		miCoordinador.setRegistrarProductosGui(miRegistrarProductosGui);
 		miCoordinador.setPersonaDao(miPersonaDao);
-		//miCoordinador.setMascotaDao(miMascotaDao);
+		miCoordinador.setMascotaDao(miMascotaDao);
 		miCoordinador.setNacimientoDao(miNacimientoDao);
 		//miCoordinador.setProductoDao(miProductoDao);
 		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
@@ -64,12 +69,13 @@ public class Relaciones {
 		//A cada clase unica se le asigna la unica instancia del coordinador
 		miVentanaPrincipal.setCoordinador(miCoordinador);
 		miVentanaConsultIndividual.setMiCoordinador(miCoordinador);
+		miVentanaEliminar.setCoordinador(miCoordinador);
 		miRegistrarPersonasGui.setCoordinador(miCoordinador);
 		miRegistrarMascotasGui.setCoordinador(miCoordinador);
 		miRegistrarProductosGui.setCoordinador(miCoordinador);
 		miPersonaDao.setCoordinador(miCoordinador);
 		miNacimientoDao.setCoordinador(miCoordinador);
-		//miMascotaDao.setCoordinador(miCoordinador);
+		miMascotaDao.setCoordinador(miCoordinador);
 		//miProductoDao.setCoordinador(miCoordinador);
 		//miPersonaProductoDao.setCoordinador(miCoordinador);
 

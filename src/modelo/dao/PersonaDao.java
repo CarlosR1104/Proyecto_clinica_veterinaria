@@ -170,12 +170,6 @@ public class PersonaDao {
 			return listaPersona;
 	}
 	
-	
-	
-	
-	
-	
-
 }
 
 

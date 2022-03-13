@@ -7,7 +7,7 @@ public class MascotaVo {
 	private String raza;
 	private String colorMascota;
 	private String sexo;
-	private PersonaVo idPersona;
+	private PersonaVo Persona;
 
 	public MascotaVo() {
 		
@@ -24,12 +24,12 @@ public class MascotaVo {
 	}
 	
 
-	public PersonaVo getIdPersona() {
-		return idPersona;
+	public PersonaVo getPersona() {
+		return Persona;
 	}
 
-	public void setIdPersona(PersonaVo idPersona) {
-		this.idPersona = idPersona;
+	public void setPersona(PersonaVo Persona) {
+		this.Persona = Persona;
 	}
 
 	public Long getIdMascota() {
@@ -76,7 +76,7 @@ public class MascotaVo {
 	public String toString() {
 		return "MascotaVo [idMascota=" + idMascota + ", nombre=" + nombre + ","
 				+"raza=" + raza + ", colorMascota="
-				+ colorMascota + ", sexo=" + sexo + "Dueño"+idPersona+"]";
+				+ colorMascota + ", sexo=" + sexo + "Dueño"+Persona+"]";
 	}
 	
 

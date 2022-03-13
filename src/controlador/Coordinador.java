@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import VO.MascotaVo;
 import VO.Nacimiento;
 import VO.PersonaVo;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaConsultIndividual;
+import gui.VentanaEliminar;
 import gui.VentanaPrincipal;
+import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
 
@@ -24,7 +27,8 @@ public class Coordinador {
 	RegistrarProductosGui miRegistrarProductosGui;
 	PersonaDao miPersonaDao;
 	NacimientoDao miNacimientoDao;
-	//MascotaDao miMascotaDao;
+	MascotaDao miMascotaDao;
+	VentanaEliminar miVentanaEliminar;
 	//ProductoDao miProductoDao;
 	//PersonaProductoDao miPersonaProductoDao;
 
@@ -57,8 +61,20 @@ public class Coordinador {
 		this.miNacimientoDao=miNacimientoDao;
 	}
 	
+	public void setMascotaDao(MascotaDao miMascotaDao) {
+		this.miMascotaDao=miMascotaDao;
+	}
+	
+	public void setVentanaEliminar(VentanaEliminar miVentanaEliminar) {
+		this.miVentanaEliminar = miVentanaEliminar;
+	}
+	
 	public void mostrarRegistroPersonas() {
 		miRegistrarPersonasGui.setVisible(true);
+	}
+	
+	public void mostrarEliminarPersonas() {
+		miVentanaEliminar.setVisible(true);
 	}
 	
 	public void mostrarRegistroMascotas() {
@@ -96,6 +112,18 @@ public class Coordinador {
 		}	
 		return f;
 	}
+		
+	public long registrarMascota(MascotaVo m) {
+		Long h= null;
+		try {
+			h=miMascotaDao.registrarMascota(m);
+		} catch (Exception e) {
+			h = null;
+		}
+		return h;
+		
+	}
+	
 	
 	public ArrayList<PersonaVo> consultar(PersonaVo miPersona) {
 		try {
@@ -120,4 +148,29 @@ public class Coordinador {
 		}
 		
 	}
+	public MascotaVo buscarMascota (long idMascota) {
+		
+		try {
+			MascotaVo m=miMascotaDao.consultarMascota(idMascota);
+			return m;
+			
+		} catch (Exception e) {
+			return null;
+			
+		}
+		
+	}
+	
+	public String eliminarMascota (Long idMascota) {
+		String em = null;
+		try {
+			em = miMascotaDao.borrarMascota(idMascota);
+			em = "Eliminado";
+		} catch (Exception e) {
+			em = "error";
+		}
+		
+		return em;
+	}
+
 }
