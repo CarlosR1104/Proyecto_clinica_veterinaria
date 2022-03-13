@@ -30,14 +30,13 @@ public class ProductoDao {
 		PreparedStatement preStatement = null;
 
 		connection = conexion.getConnection();
-		String consulta = "INSERT INTO productos (id_producto,nombre_producto,precio_producto)"
-				+ "  VALUES (?,?,?)";
+		String consulta = "INSERT INTO productos (nombre_producto,precio_producto)"
+				+ "  VALUES (?,?)";
 
 		try {
 			preStatement = connection.prepareStatement(consulta);
-			preStatement.setLong(1, miProducto.getIdProducto());
-			preStatement.setString(2, miProducto.getNombreProducto());
-			preStatement.setDouble(3, miProducto.getPrecioProducto());
+			preStatement.setString(1, miProducto.getNombreProducto());
+			preStatement.setDouble(2, miProducto.getPrecioProducto());
 			preStatement.execute();
 
 			resultado = "ok";
@@ -95,8 +94,9 @@ public class ProductoDao {
 			return miProducto;
 	}
 	
-	public Long actualizarProducto(ProductoVo miProducto) {
-
+	public String actualizarProducto(ProductoVo miProducto) {
+		
+		String resultado = "";
 		Long idProducto=null;
 		Connection connection = null;
 		Conexion conexion = new Conexion();
@@ -111,27 +111,23 @@ public class ProductoDao {
 			preStatement = connection.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);
 			preStatement.setString(1, miProducto.getNombreProducto());
 			preStatement.setDouble(2, miProducto.getPrecioProducto());
+			preStatement.setDouble(3, miProducto.getIdProducto());
 			preStatement.execute();
 			
-			result=preStatement.getGeneratedKeys();
-			if (result.next()) {
-				idProducto=result.getLong(1);
-			}
 
 		} catch (SQLException e) {
-			System.out.println("No se pudo actualizar los datos del nacimiento: " + e.getMessage());
+			System.out.println("No se pudo actualizar los datos del producto: " + e.getMessage());
 			e.printStackTrace();
 			idProducto = null;
 		} catch (Exception e) {
-			System.out.println("No se pudo actualizar los datos del nacimiento: " + e.getMessage());
+			System.out.println("No se pudo actualizar los datos del producto: " + e.getMessage());
 			e.printStackTrace();
 			idProducto = null;
 		}
 		finally {
 			conexion.desconectar();
 		}
-		System.out.println("El ID del Nacimiento es: "+idProducto);
-		return idProducto;
+		return resultado;
 		
 	}
 	
@@ -147,16 +143,16 @@ public class ProductoDao {
 		
 		ProductoVo miProducto = null;
 
-		String consulta = "DELETE FROM productos where id_producto= ? ";
-
 		try {
 			if (connection != null) {
+				
+				String consulta = "DELETE FROM productos where id_producto= ? ";
+				
 				statement = connection.prepareStatement(consulta);
-				statement.setLong(1, idProducto);
-
-				result = statement.executeQuery();
-				resultado = "ok";
-				miConexion.desconectar();
+				statement.setLong(1,idProducto);
+				statement.executeUpdate();
+				
+				resultado = "Eliminado DAO";
 			}
 		} catch (SQLException e) {
 			System.out.println("Error en la eliminacion del producto: " + e.getMessage());

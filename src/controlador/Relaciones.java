@@ -11,6 +11,7 @@ import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.ProductoDao;
 
 public class Relaciones {
 
@@ -29,7 +30,7 @@ public class Relaciones {
 		PersonaDao miPersonaDao;
 		NacimientoDao miNacimientoDao;
 		MascotaDao miMascotaDao;
-		//ProductoDao miProductoDao;
+		ProductoDao miProductoDao;
 		//PersonaProductoDao miPersonaProductoDao;
 		
 		
@@ -46,7 +47,7 @@ public class Relaciones {
 		miPersonaDao= new PersonaDao();
 		miMascotaDao= new MascotaDao();
 		miNacimientoDao= new NacimientoDao();
-		//miProductoDao= new ProductoDao();
+		miProductoDao= new ProductoDao();
 		//miPersonaProductoDao= new PersonaProductoDao();
 		
 		
@@ -62,7 +63,7 @@ public class Relaciones {
 		miCoordinador.setPersonaDao(miPersonaDao);
 		miCoordinador.setMascotaDao(miMascotaDao);
 		miCoordinador.setNacimientoDao(miNacimientoDao);
-		//miCoordinador.setProductoDao(miProductoDao);
+		miCoordinador.setProductoDao(miProductoDao);
 		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
 	
 	
@@ -76,7 +77,7 @@ public class Relaciones {
 		miPersonaDao.setCoordinador(miCoordinador);
 		miNacimientoDao.setCoordinador(miCoordinador);
 		miMascotaDao.setCoordinador(miCoordinador);
-		//miProductoDao.setCoordinador(miCoordinador);
+		miProductoDao.setCoordinador(miCoordinador);
 		//miPersonaProductoDao.setCoordinador(miCoordinador);
 
 		//Se muestra la ventana principal.

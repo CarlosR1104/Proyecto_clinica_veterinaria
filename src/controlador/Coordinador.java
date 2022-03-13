@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import VO.MascotaVo;
 import VO.Nacimiento;
 import VO.PersonaVo;
+import VO.ProductoVo;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -16,6 +17,7 @@ import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.ProductoDao;
 
 public class Coordinador {
 
@@ -29,7 +31,7 @@ public class Coordinador {
 	NacimientoDao miNacimientoDao;
 	MascotaDao miMascotaDao;
 	VentanaEliminar miVentanaEliminar;
-	//ProductoDao miProductoDao;
+	ProductoDao miProductoDao;
 	//PersonaProductoDao miPersonaProductoDao;
 
 	
@@ -56,7 +58,11 @@ public class Coordinador {
 	public void setPersonaDao(PersonaDao miPersonaDao) {
 		this.miPersonaDao=miPersonaDao;
 	}
-
+	
+	public void setProductoDao(ProductoDao miProductoDao) {
+		this.miProductoDao = miProductoDao;
+	}
+	
 	public void setNacimientoDao(NacimientoDao miNacimientoDao) {
 		this.miNacimientoDao=miNacimientoDao;
 	}
@@ -73,7 +79,7 @@ public class Coordinador {
 		miRegistrarPersonasGui.setVisible(true);
 	}
 	
-	public void mostrarEliminarPersonas() {
+	public void mostrarEliminarMascotas() {
 		miVentanaEliminar.setVisible(true);
 	}
 	
@@ -124,6 +130,18 @@ public class Coordinador {
 		
 	}
 	
+	public String registrarProductos(ProductoVo p) {
+		String registrar="";
+		try {
+			
+			registrar=miProductoDao.registrarProducto(p);
+			
+		} catch (Exception e) {
+			registrar = "NO SE HA REGISTRADO";
+		}
+		return registrar;
+		
+	}
 	
 	public ArrayList<PersonaVo> consultar(PersonaVo miPersona) {
 		try {
@@ -148,19 +166,29 @@ public class Coordinador {
 		}
 		
 	}
-	public MascotaVo buscarMascota (long idMascota) {
-		
+	
+	public ProductoVo buscarProducto(long idProducto) {
+		ProductoVo p;
 		try {
-			MascotaVo m=miMascotaDao.consultarMascota(idMascota);
-			return m;
+			p=miProductoDao.consultarProducto(idProducto);
 			
 		} catch (Exception e) {
-			return null;
-			
+			p = null;
 		}
-		
+		return p;
 	}
 	
+	public MascotaVo buscarMascota (long idMascota) {
+		MascotaVo m;
+		try {
+			m=miMascotaDao.consultarMascota(idMascota);
+			
+		} catch (Exception e) {
+			m = null;
+		}
+		return m;
+	}
+		
 	public String eliminarMascota (Long idMascota) {
 		String em = null;
 		try {
@@ -172,5 +200,42 @@ public class Coordinador {
 		
 		return em;
 	}
-
+		
+	public String eliminarProducto (Long idProducto) {
+		String em = null;
+		try {
+			em = miProductoDao.borrarProducto(idProducto);
+			em = "Eliminado";
+		} catch (Exception e) {
+			em = "error";
+		}
+		
+		return em;
+	}
+	
+	public String actualizarMascota (MascotaVo miMascota) {
+		String r = null;
+		try {
+			r = miMascotaDao.actualizarMascota(miMascota);
+			r = "ok";
+			System.out.println(miMascota);
+		} catch (Exception e) {
+			r = "ERROR";
+			miMascota = null;
+		}
+		return r;
+	}
+	
+	public String actualizarProducto (ProductoVo miProducto) {
+		String r = null;
+		try {
+			r = miProductoDao.actualizarProducto(miProducto);
+			r = "ok";
+			System.out.println(miProducto);
+		} catch (Exception e) {
+			r = "ERROR";
+			miProducto= null;
+		}
+		return r;
+	}
 }

@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import VO.MascotaVo;
+import VO.ProductoVo;
 import controlador.Coordinador;
 
 import javax.swing.JLabel;
@@ -24,7 +25,7 @@ public class VentanaEliminar extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JLabel lblDocumento;
 	private JTextField txtDocumento;
-	private JButton btnEliminar;
+	private JButton btnEliminar,btnEliminarProducto;
 	private JTextArea txtArea;
 	private JScrollPane scroll;
 	private Coordinador miCoordinador;
@@ -53,9 +54,14 @@ public class VentanaEliminar extends JFrame implements ActionListener{
 		contentPane.add(txtDocumento);
 	
 		btnEliminar = new JButton("Eliminar Mascota");
-		btnEliminar.setBounds(220,30,150,40);
+		btnEliminar.setBounds(220,15,150,30);
 		btnEliminar.addActionListener(this);
 		contentPane.add(btnEliminar);
+		
+		btnEliminarProducto = new JButton("Eliminar Producto");
+		btnEliminarProducto.setBounds(220,50,150,30);
+		btnEliminarProducto.addActionListener(this);
+		contentPane.add(btnEliminarProducto);
 	
 		txtArea=new JTextArea();
 		
@@ -74,6 +80,12 @@ public class VentanaEliminar extends JFrame implements ActionListener{
 			txtArea.setText("" + m);
 			eliminar = miCoordinador.eliminarMascota(Long.parseLong(txtDocumento.getText()));
 			System.out.println(eliminar);
+		}else if (e.getSource() == btnEliminarProducto) {
+			String eliminarProducto = null;
+			ProductoVo p = miCoordinador.buscarProducto(Long.parseLong(txtDocumento.getText()));
+			txtArea.setText(""+p);
+			eliminarProducto = miCoordinador.eliminarProducto(Long.parseLong(txtDocumento.getText()));
+			System.out.println(eliminarProducto);
 		}
 	}
 
