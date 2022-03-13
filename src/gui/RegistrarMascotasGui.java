@@ -17,6 +17,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import VO.MascotaVo;
+import VO.PersonaVo;
 import controlador.Coordinador;
 
 import javax.swing.JSeparator;
@@ -32,8 +34,10 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
-
-
+	private JComboBox comboBox_1;
+	private JComboBox comboBox;
+	private PersonaVo miPersonaVo;
+	
 	/**
 	 * Create the dialog.
 	 * @param b 
@@ -115,7 +119,7 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 		lblSexo.setBounds(24, 81, 71, 21);
 		panel.add(lblSexo);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Macho", "Hembra"}));
 		comboBox.setBounds(88, 81, 86, 22);
 		panel.add(comboBox);
@@ -124,7 +128,7 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 		lblColor.setBounds(214, 82, 71, 21);
 		panel.add(lblColor);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Blanco", "Negro", "Caf\u00E9", "Gris", "Manchas"}));
 		comboBox_1.setBounds(269, 81, 86, 22);
 		panel.add(comboBox_1);
@@ -133,8 +137,19 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == btnRegistrar) {
+			miPersonaVo = new PersonaVo();
+			miPersonaVo = miCoordinador.buscarPersona(Long.parseLong(txtIdDueno.getText()));
+			
+			MascotaVo miMascota = new MascotaVo();
+			miMascota.setNombre(txtNombre.getText());
+			miMascota.setColorMascota((String) comboBox_1.getSelectedItem());
+			miMascota.setSexo((String) comboBox.getSelectedItem());
+			miMascota.setRaza(txtTelefono.getText());
+			miMascota.setPersona(miPersonaVo);
+			miCoordinador.registrarMascota(miMascota);
+			
+		}
 	}
 
 
