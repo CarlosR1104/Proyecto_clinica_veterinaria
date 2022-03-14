@@ -172,5 +172,47 @@ public class Coordinador {
 		
 		return em;
 	}
+	
+	public String eliminarPersona(long idDocumento) {
+		String validar="";
+		try {
+			validar=miPersonaDao.eliminarPersonaDao(idDocumento);
+			System.out.println(validar);
+		} catch (Exception e) {
+			validar="error al validar una persona para eliminar";
+		}
+		return validar;
+	}
+
+	public String eliminarNaciminto(Long idNacimiento) {
+		String validar="";
+		try {
+			validar=miNacimientoDao.eliminarNacimientoDao(idNacimiento);
+		} catch (Exception e) {
+			validar="error con eliminar mi nacimiento";
+		}
+		return null;
+	}
+
+	public String actualizaPersona(PersonaVo encontrado) {
+		 String resultado="";
+		 try {
+			resultado=miPersonaDao.actualizarPersonaVo(encontrado);
+		} catch (Exception e) {
+			resultado="error en cordinador al actualizar";
+		}
+		return resultado;
+	}
+
+	public Nacimiento buscarNacimiento(Long idNacimiento) {
+		Nacimiento nacimiento=null;
+		try {
+			nacimiento=miNacimientoDao.consultarNacimiento(idNacimiento);
+		} catch (Exception e) {
+			e.printStackTrace();
+			nacimiento=null;
+		}
+		return nacimiento;
+	}
 
 }

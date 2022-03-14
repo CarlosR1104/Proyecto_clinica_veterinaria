@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexion {
 	private String nombreBd="bd_clinica";
 	private String usuario="root";
-	private String password="3148202269";
+	private String password="";
 	private String url="jdbc:mysql://localhost:3306/"+nombreBd+"?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
 			+ "serverTimezone=UTC";
