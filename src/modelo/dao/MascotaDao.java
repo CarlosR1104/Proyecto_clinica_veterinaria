@@ -96,7 +96,9 @@ public class MascotaDao {
 					miPersona.setIdPesona(Long.parseLong(result.getString("persona_id")));
 					miMascota.setPersona(miPersona);		
 				}		
-				   miConexion.desconectar();
+				statement.close();
+				result.close();  
+				miConexion.desconectar();
 			}else{
 				miPersona=null;
 			}			   
@@ -106,45 +108,48 @@ public class MascotaDao {
 			return miMascota;
 	}
 	
-	public Long actualizarMascota(MascotaVo miMascota) {
-
+	public String actualizarMascota(MascotaVo miMascota) throws SQLException {
+		
+		String resultado = "";
 		Long idMascota=null;
 		Connection connection = null;
 		Conexion conexion = new Conexion();
 		PreparedStatement preStatement = null;
-
+		Statement s = null;
 		ResultSet result=null;
-		
 		connection = conexion.getConnection();
-		String consulta = "UPDATE nacimiento SET color = ?, nombre = ?, raza = ?, sexo = ? WHERE id_mascota = ?";
+		System.out.println("MASCOTA DAO "+miMascota);
+		
+		try {			
+			String consulta = "UPDATE mascotas "+ "SET color = ? ," + "nombre = ? ," +"raza = ? ," +"sexo = ?" + "Where id_mascota = ? ;";
 
-		try {
-			preStatement = connection.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);
+			preStatement = connection.prepareStatement(consulta);
 			preStatement.setString(1, miMascota.getColorMascota());
 			preStatement.setString(2, miMascota.getNombre());
 			preStatement.setString(3, miMascota.getRaza());
 			preStatement.setString(4, miMascota.getSexo());
-			preStatement.execute();
+			preStatement.setLong(5, miMascota.getIdMascota());
+			preStatement.executeUpdate();
 			
-			result=preStatement.getGeneratedKeys();
-			if (result.next()) {
-				idMascota=result.getLong(1);
-			}
-
+			resultado = "ok";
 		} catch (SQLException e) {
-			System.out.println("No se pudo actualizar los datos del nacimiento: " + e.getMessage());
+			System.out.println("No se pudo actualizar los datos de la mascota sql: " + e.getMessage());
 			e.printStackTrace();
 			idMascota = null;
+			resultado = "ERROR";
 		} catch (Exception e) {
-			System.out.println("No se pudo actualizar los datos del nacimiento: " + e.getMessage());
+			System.out.println("No se pudo actualizar los datos de la mascota: " + e.getMessage());
 			e.printStackTrace();
 			idMascota = null;
+			resultado = "ERROR";
+			
 		}
 		finally {
+			preStatement.close();
+			result.close();
 			conexion.desconectar();
 		}
-		System.out.println("El ID del Nacimiento es: "+idMascota);
-		return idMascota;
+		return resultado;
 		
 	}
 	
