@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 import VO.Nacimiento;
+import VO.PersonaVo;
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
 
@@ -98,6 +99,37 @@ public class NacimientoDao {
 			System.out.println("Error en la consulta de la persona: "+e.getMessage());
 		}
 		return miNacimiento;		
+	}
+
+	public String eliminarNacimientoDao(Long idNacimiento)throws SQLException {
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		String respuesta="";
+		PersonaVo miPersona=null;
+		Nacimiento miNacimiento=null;
+		
+		connection=miConexion.getConnection();
+		
+		try {
+			String Sentencia = "Delete from nacimiento Where id_nacimiento=?";
+			statement=connection.prepareStatement(Sentencia);
+			statement.setLong(1, idNacimiento);
+			statement.executeUpdate();
+			
+			respuesta="ok";
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("hubo error en la eliminada de datos");
+		}
+		finally {
+			result.close();
+			statement.close();
+			miConexion.desconectar();
+		}
+		return respuesta;
 	}
 
 }
