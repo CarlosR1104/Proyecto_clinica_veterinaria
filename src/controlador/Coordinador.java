@@ -200,7 +200,7 @@ public class Coordinador {
 		
 		return em;
 	}
-<<<<<<< HEAD
+
 	
 	public String eliminarPersona(long idDocumento) {
 		String validar="";
@@ -244,7 +244,7 @@ public class Coordinador {
 		return nacimiento;
 	}
 
-=======
+
 		
 	public String eliminarProducto (Long idProducto) {
 		String em = null;
@@ -283,5 +283,5 @@ public class Coordinador {
 		}
 		return r;
 	}
->>>>>>> 400d9e80cb9b8047a6976992586086410b79aa11
+
 }
