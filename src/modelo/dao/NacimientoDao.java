@@ -102,6 +102,8 @@ public class NacimientoDao {
 	}
 
 	public String eliminarNacimientoDao(Long idNacimiento)throws SQLException {
+		
+		System.out.println("estamos mirando el id "+idNacimiento);
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;

@@ -21,8 +21,8 @@ public class MascotaDao {
 		this.miCoordinador = miCoordinador;
 	}
 
-	public Long registrarMascota(MascotaVo miMascota) {
-
+	public String registrarMascota(MascotaVo miMascota) {
+		String resultado="";
 		Long idMascota = null;
 		Connection connection = null;
 		Conexion conexion = new Conexion();
@@ -46,6 +46,8 @@ public class MascotaDao {
 			if (result.next()) {
 				idMascota = result.getLong(1);
 			}
+			
+			resultado="ok";
 
 		} catch (SQLException e) {
 			System.out.println("No se pudo registrar los datos del nacimiento: " + e.getMessage());
@@ -59,11 +61,11 @@ public class MascotaDao {
 			conexion.desconectar();
 		}
 		System.out.println("El ID de la mascota es: " + idMascota);
-		return idMascota;
+		return resultado;
 
 	}
 	
-	public MascotaVo consultarMascota(Long idMascota) {
+	public MascotaVo consultarMascota(String nombre) {
 		
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
@@ -75,12 +77,12 @@ public class MascotaDao {
 		
 		connection=miConexion.getConnection();
 		
-		String consulta="SELECT * FROM mascotas where id_mascota= ? ";
+		String consulta="SELECT * FROM mascotas where nombre= ? ";
 		
 		try {
 			if (connection!=null) {
 				statement=connection.prepareStatement(consulta);
-				statement.setLong(1, idMascota);
+				statement.setString(1, nombre);
 				
 				result=statement.executeQuery();
 				
@@ -153,7 +155,7 @@ public class MascotaDao {
 		
 	}
 	
-	public String borrarMascota(Long idMascota) {
+	public String borrarMascota(Long persona_id)throws SQLException  {
 		Connection connection = null;
 		Conexion miConexion = new Conexion();
 		PreparedStatement st = null;
@@ -166,13 +168,13 @@ public class MascotaDao {
 		try {
 			if (connection != null) {
 				
-				String ejecutar = "DELETE FROM mascotas WHERE id_mascota = ?";
+				String ejecutar = "DELETE FROM mascotas WHERE persona_id = ?";
 				
 				st = connection.prepareStatement(ejecutar);
-				st.setLong(1,idMascota);
+				st.setLong(1,persona_id);
 				st.executeUpdate();
 				
-				resultado = "Eliminado DAO";
+				resultado = "ok";
 			}
 		} catch (SQLException e) {
 			System.out.println("Error en la eliminacion de la mascota sql: " + e.getMessage());
@@ -180,6 +182,11 @@ public class MascotaDao {
 		} catch (Exception e) {
 			System.out.println("Error en la eliminacion de la mascota: " + e.getMessage());
 			resultado = "error";
+		}
+		finally {
+			st.close();
+			connection.close();
+			miConexion.desconectar();
 		}
 		return resultado;
 	}

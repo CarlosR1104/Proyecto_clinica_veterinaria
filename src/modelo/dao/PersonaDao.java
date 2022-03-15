@@ -218,6 +218,7 @@ public class PersonaDao {
 		
 	}
 	public String eliminarPersonaDao(long idDocumento) throws SQLException{
+		
 		System.out.println("hola");
 		String respuesta="";
 		Connection connection=null;
@@ -226,7 +227,9 @@ public class PersonaDao {
 			
 		connection=miConexion.getConnection();
 		try {
-			String Sentencia = "Delete from persona Where id_persona=?";
+			
+			String Sentencia = " Delete from persona Where id_persona = ? ";
+			
 			statement=connection.prepareStatement(Sentencia);
 			statement.setLong(1, idDocumento);
 			statement.executeUpdate();

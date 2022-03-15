@@ -8,10 +8,12 @@ import gui.RegistrarProductosGui;
 import gui.VentanaActualizarPersona;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
+import gui.VentanaEliminarProductos;
 import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.PersonaProductoDao;
 import modelo.dao.ProductoDao;
 
 public class Relaciones {
@@ -32,7 +34,8 @@ public class Relaciones {
 		NacimientoDao miNacimientoDao;
 		MascotaDao miMascotaDao;
 		ProductoDao miProductoDao;
-		//PersonaProductoDao miPersonaProductoDao;
+		VentanaEliminarProductos miVentanaEliminarP;
+		PersonaProductoDao miPersonaProductoDao;
 		
 		
 		//Se instancian por unica ocasión las clases declaradas
@@ -44,13 +47,14 @@ public class Relaciones {
 		miRegistrarPersonasGui= new RegistrarPersonasGui(miVentanaPrincipal, true);
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
+		miVentanaEliminarP = new VentanaEliminarProductos();
 		
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
 		miMascotaDao= new MascotaDao();
 		miNacimientoDao= new NacimientoDao();
 		miProductoDao= new ProductoDao();
-		//miPersonaProductoDao= new PersonaProductoDao();
+		miPersonaProductoDao= new PersonaProductoDao();
 		
 		
 		//Se establece la relación entre el coordinador y cada instancia unica
@@ -67,7 +71,8 @@ public class Relaciones {
 		miCoordinador.setMascotaDao(miMascotaDao);
 		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setProductoDao(miProductoDao);
-		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
+		miCoordinador.setVentanaEliminarP(miVentanaEliminarP);
+		miCoordinador.setMiPersonaProductoDao(miPersonaProductoDao);
 	
 	
 		//A cada clase unica se le asigna la unica instancia del coordinador
@@ -82,7 +87,8 @@ public class Relaciones {
 		miNacimientoDao.setCoordinador(miCoordinador);
 		miMascotaDao.setCoordinador(miCoordinador);
 		miProductoDao.setCoordinador(miCoordinador);
-		//miPersonaProductoDao.setCoordinador(miCoordinador);
+		miVentanaEliminarP.setCoordinador(miCoordinador);
+		miPersonaProductoDao.setCoordinador(miCoordinador);
 
 		//Se muestra la ventana principal.
 		miVentanaPrincipal.setVisible(true);

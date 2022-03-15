@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,11 +35,12 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 	private JTextField txtTelefono;
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
-	private Coordinador miCoordinador;
+	
 	private JComboBox comboBox_1;
 	private JComboBox comboBox;
 	private PersonaVo miPersonaVo;
 	
+	Coordinador miCoordinador;
 	/**
 	 * Create the dialog.
 	 * @param b 
@@ -138,16 +141,22 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnRegistrar) {
-			miPersonaVo = new PersonaVo();
-			miPersonaVo = miCoordinador.buscarPersona(Long.parseLong(txtIdDueno.getText()));
 			
-			MascotaVo miMascota = new MascotaVo();
-			miMascota.setNombre(txtNombre.getText());
-			miMascota.setColorMascota((String) comboBox_1.getSelectedItem());
-			miMascota.setSexo((String) comboBox.getSelectedItem());
-			miMascota.setRaza(txtTelefono.getText());
-			miMascota.setPersona(miPersonaVo);
-			miCoordinador.registrarMascota(miMascota);
+			miPersonaVo = miCoordinador.buscarPersona(Long.parseLong(txtIdDueno.getText()));
+			if(miPersonaVo!=null) {
+				
+				MascotaVo miMascota = new MascotaVo();
+				miMascota.setNombre(txtNombre.getText());
+				miMascota.setColorMascota((String) comboBox_1.getSelectedItem());
+				miMascota.setSexo((String) comboBox.getSelectedItem());
+				miMascota.setRaza(txtTelefono.getText());
+				miMascota.setPersona(miPersonaVo);
+				miCoordinador.registrarMascota(miMascota);
+				
+				JOptionPane.showMessageDialog(null, "Mascota registrada exitosamente");
+				
+			}
+			
 			
 		}
 	}
