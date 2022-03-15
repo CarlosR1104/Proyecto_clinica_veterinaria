@@ -11,6 +11,7 @@ import VO.ProductoVo;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
+import gui.VentanaActualizarPersona;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
 import gui.VentanaPrincipal;
@@ -32,12 +33,19 @@ public class Coordinador {
 	MascotaDao miMascotaDao;
 	VentanaEliminar miVentanaEliminar;
 	ProductoDao miProductoDao;
+	VentanaActualizarPersona miVentanaActualizarPersona;
 	//PersonaProductoDao miPersonaProductoDao;
 
 	
 	public void setVentanaPrincipal(VentanaPrincipal miVentanaPrincipal) {
 	this.miVentanaPrincipal=miVentanaPrincipal;
 	}
+	
+	
+	public void setMiVentanaActualizarPersona(VentanaActualizarPersona miVentanaActualizarPersona) {
+		this.miVentanaActualizarPersona = miVentanaActualizarPersona;
+	}
+
 
 	public void setMiVentanaConsultIndividual(VentanaConsultIndividual miVentanaConsultIndividual) {
 		this.miVentanaConsultIndividual = miVentanaConsultIndividual;
@@ -93,6 +101,12 @@ public class Coordinador {
 	
 	public void mostrarConsultaIndividual() {
 		miVentanaConsultIndividual.setVisible(true);
+	}
+	
+public void mostrarVenActualizar() {
+	miVentanaActualizarPersona.setVisible(true);
+	
+		
 	}
 	
 	public String registrarPersonas(PersonaVo p) {
@@ -283,5 +297,18 @@ public class Coordinador {
 		}
 		return r;
 	}
+
+
+	public String actualizarNacimiento(Nacimiento encontradoNacimiento) {
+		String encontrado="";
+		try {
+			encontrado=miNacimientoDao.actualizarNacimiento(encontradoNacimiento);
+		} catch (Exception e) {
+			System.out.println("error al actualizar el nacimiento");
+		}
+		return encontrado;
+	}
+
+	
 
 }

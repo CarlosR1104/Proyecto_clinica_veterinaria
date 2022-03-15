@@ -5,6 +5,7 @@ import java.text.ParseException;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
+import gui.VentanaActualizarPersona;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
 import gui.VentanaPrincipal;
@@ -19,7 +20,7 @@ public class Relaciones {
 		
 		
 		//Se declaran las clases que van a representar instancias unicas
-		
+		VentanaActualizarPersona miVentanaActualizarPersona;
 		VentanaPrincipal miVentanaPrincipal;
 		VentanaConsultIndividual miVentanaConsultIndividual;
 		VentanaEliminar miVentanaEliminar;
@@ -39,6 +40,7 @@ public class Relaciones {
 		miVentanaPrincipal= new VentanaPrincipal();
 		miVentanaConsultIndividual=new VentanaConsultIndividual();
 		miVentanaEliminar = new VentanaEliminar();
+		miVentanaActualizarPersona=new VentanaActualizarPersona(miVentanaPrincipal,true);
 		miRegistrarPersonasGui= new RegistrarPersonasGui(miVentanaPrincipal, true);
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
@@ -55,6 +57,7 @@ public class Relaciones {
 		//Al coordinador se le asigna el control de cada clase unica
 		
 		miCoordinador.setVentanaPrincipal(miVentanaPrincipal);
+		miCoordinador.setMiVentanaActualizarPersona(miVentanaActualizarPersona);
 		miCoordinador.setMiVentanaConsultIndividual(miVentanaConsultIndividual);
 		miCoordinador.setVentanaEliminar(miVentanaEliminar);
 		miCoordinador.setRegistrarPersonasGui(miRegistrarPersonasGui);
@@ -69,6 +72,7 @@ public class Relaciones {
 	
 		//A cada clase unica se le asigna la unica instancia del coordinador
 		miVentanaPrincipal.setCoordinador(miCoordinador);
+		miVentanaActualizarPersona.setCoordinador(miCoordinador);
 		miVentanaConsultIndividual.setMiCoordinador(miCoordinador);
 		miVentanaEliminar.setCoordinador(miCoordinador);
 		miRegistrarPersonasGui.setCoordinador(miCoordinador);

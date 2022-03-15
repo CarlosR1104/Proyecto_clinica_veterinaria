@@ -131,6 +131,48 @@ public class NacimientoDao {
 		}
 		return respuesta;
 	}
+	public String actualizarNacimiento(Nacimiento n)throws SQLException  {
+		String resultado="";
+		
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		
+				
+		connection=miConexion.getConnection();
+		try {
+			String consulta ="UPDATE nacimiento"+" SET ciudad_nacimiento = ? , " + "departamento_nacimiento = ? ," + "fecha_nacimiento = ? ," + "pais_nacimiento = ? " 
+					+" Where id_nacimiento = ? ;";
+			System.out.println(consulta);
+			statement=connection.prepareStatement(consulta);
+			
+			
+			statement.setString(1, n.getCiudadNacimiento());
+			statement.setString(2, n.getDepartamentoNacimiento());
+			statement.setString(3, n.getFechaNacimiento().toString());
+			statement.setString(4, n.getPaisNacimiento());
+			
 
+			statement.setLong(5,n.getIdNacimiento());
+			System.out.println(statement);
+			statement.executeUpdate();
+			
+			
+			resultado="ok";
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			System.out.println("error en actualizar");
+		}
+		finally {
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+
+			
+		}
+		return resultado;
+		
+	}
 }
 
