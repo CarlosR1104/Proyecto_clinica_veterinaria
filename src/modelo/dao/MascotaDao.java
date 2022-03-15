@@ -63,7 +63,7 @@ public class MascotaDao {
 
 	}
 	
-	public MascotaVo consultarMascota(Long idMascota) {
+	public MascotaVo consultarMascota(String nombre) {
 		
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
@@ -75,12 +75,12 @@ public class MascotaDao {
 		
 		connection=miConexion.getConnection();
 		
-		String consulta="SELECT * FROM mascotas where id_mascota= ? ";
+		String consulta="SELECT * FROM mascotas where nombre= ? ";
 		
 		try {
 			if (connection!=null) {
 				statement=connection.prepareStatement(consulta);
-				statement.setLong(1, idMascota);
+				statement.setString(1, nombre);
 				
 				result=statement.executeQuery();
 				

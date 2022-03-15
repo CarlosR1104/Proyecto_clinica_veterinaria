@@ -13,6 +13,7 @@ import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
+import gui.VentanaEliminarProductos;
 import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
@@ -32,6 +33,7 @@ public class Coordinador {
 	MascotaDao miMascotaDao;
 	VentanaEliminar miVentanaEliminar;
 	ProductoDao miProductoDao;
+	VentanaEliminarProductos miVentanaEliminarP;
 	//PersonaProductoDao miPersonaProductoDao;
 
 	
@@ -67,6 +69,10 @@ public class Coordinador {
 		this.miNacimientoDao=miNacimientoDao;
 	}
 	
+	public void setVentanaEliminarP(VentanaEliminarProductos miVentanaEliminarProductos) {
+		this.miVentanaEliminarP = miVentanaEliminarProductos;
+	}
+	
 	public void setMascotaDao(MascotaDao miMascotaDao) {
 		this.miMascotaDao=miMascotaDao;
 	}
@@ -93,6 +99,10 @@ public class Coordinador {
 	
 	public void mostrarConsultaIndividual() {
 		miVentanaConsultIndividual.setVisible(true);
+	}
+	
+	public void mostrarEliminarProductos() {
+		miVentanaEliminarP.setVisible(true);
 	}
 	
 	public String registrarPersonas(PersonaVo p) {
@@ -167,10 +177,10 @@ public class Coordinador {
 		
 	}
 	
-	public ProductoVo buscarProducto(long idProducto) {
+	public ProductoVo buscarProducto(String nombre) {
 		ProductoVo p;
 		try {
-			p=miProductoDao.consultarProducto(idProducto);
+			p=miProductoDao.consultarProducto(nombre);
 			
 		} catch (Exception e) {
 			p = null;
@@ -178,10 +188,10 @@ public class Coordinador {
 		return p;
 	}
 	
-	public MascotaVo buscarMascota (long idMascota) {
+	public MascotaVo buscarMascota (String nombre) {
 		MascotaVo m;
 		try {
-			m=miMascotaDao.consultarMascota(idMascota);
+			m=miMascotaDao.consultarMascota(nombre);
 			
 		} catch (Exception e) {
 			m = null;
@@ -201,10 +211,10 @@ public class Coordinador {
 		return em;
 	}
 		
-	public String eliminarProducto (Long idProducto) {
+	public String eliminarProducto (String nombre) {
 		String em = null;
 		try {
-			em = miProductoDao.borrarProducto(idProducto);
+			em = miProductoDao.borrarProducto(nombre);
 			em = "Eliminado";
 		} catch (Exception e) {
 			em = "error";
@@ -237,5 +247,9 @@ public class Coordinador {
 			miProducto= null;
 		}
 		return r;
+	}
+
+	public void setMiVentanaEliminarProductos(VentanaEliminarProductos miVentanaEliminarP) {
+		this.miVentanaEliminarP = miVentanaEliminarP;
 	}
 }

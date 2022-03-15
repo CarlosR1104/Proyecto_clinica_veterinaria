@@ -21,7 +21,7 @@ public class ProductoDao {
 		this.miCoordinador=miCoordinador;
 	}
 
-	public String registrarProducto(ProductoVo miProducto) {
+	public String registrarProducto(ProductoVo miProducto) throws SQLException {
 		
 		String resultado = "";
 
@@ -52,13 +52,14 @@ public class ProductoDao {
 			resultado = "No se pudo registrar la persona";
 		}
 		finally {
+			preStatement.close();
 			conexion.desconectar();
 		}
 
 		return resultado;
 		
 	}
-	public ProductoVo consultarProducto(Long idProducto) {
+	public ProductoVo consultarProducto(String nombre) {
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;
@@ -68,12 +69,12 @@ public class ProductoDao {
 		
 		connection=miConexion.getConnection();
 		
-		String consulta="SELECT * FROM productos where id_producto= ? ";
+		String consulta="SELECT * FROM productos WHERE nombre_producto = ? ";
 		
 		try {
 			if (connection!=null) {
 				statement=connection.prepareStatement(consulta);
-				statement.setLong(1, idProducto);
+				statement.setString(1, nombre);
 				
 				result=statement.executeQuery();
 				
@@ -84,12 +85,14 @@ public class ProductoDao {
 					miProducto.setPrecioProducto(result.getDouble("precio_producto"));
 					
 				}		
-				   miConexion.desconectar();
+				statement.close();
+				result.close();   
+				miConexion.desconectar();
 			}else{
 				miProducto=null;
 			}			   
 		} catch (SQLException e) {
-			System.out.println("Error en la consulta de la persona: "+e.getMessage());
+			System.out.println("Error en la consulta del producto: "+e.getMessage());
 		}
 			return miProducto;
 	}
@@ -131,7 +134,7 @@ public class ProductoDao {
 		
 	}
 	
-	public String borrarProducto(Long idProducto) {
+	public String borrarProducto(String nombre) {
 		Connection connection = null;
 		Conexion miConexion = new Conexion();
 		PreparedStatement statement = null;
@@ -146,10 +149,10 @@ public class ProductoDao {
 		try {
 			if (connection != null) {
 				
-				String consulta = "DELETE FROM productos where id_producto= ? ";
+				String consulta = "DELETE FROM productos WHERE nombre_producto = ? ";
 				
 				statement = connection.prepareStatement(consulta);
-				statement.setLong(1,idProducto);
+				statement.setString(1,nombre);
 				statement.executeUpdate();
 				
 				resultado = "Eliminado DAO";

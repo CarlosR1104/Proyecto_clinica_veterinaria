@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -149,6 +151,7 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 			miMascota.setPersona(miPersonaVo);
 			miCoordinador.registrarMascota(miMascota);
 			
+			JOptionPane.showMessageDialog(null, "Mascota registrada exitosamente");
 		}
 	}
 

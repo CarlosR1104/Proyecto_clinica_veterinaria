@@ -7,6 +7,7 @@ import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
+import gui.VentanaEliminarProductos;
 import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
@@ -31,6 +32,7 @@ public class Relaciones {
 		NacimientoDao miNacimientoDao;
 		MascotaDao miMascotaDao;
 		ProductoDao miProductoDao;
+		VentanaEliminarProductos miVentanaEliminarP;
 		//PersonaProductoDao miPersonaProductoDao;
 		
 		
@@ -42,6 +44,7 @@ public class Relaciones {
 		miRegistrarPersonasGui= new RegistrarPersonasGui(miVentanaPrincipal, true);
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
+		miVentanaEliminarP = new VentanaEliminarProductos();
 		
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
@@ -64,6 +67,7 @@ public class Relaciones {
 		miCoordinador.setMascotaDao(miMascotaDao);
 		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setProductoDao(miProductoDao);
+		miCoordinador.setMiVentanaEliminarProductos(miVentanaEliminarP);
 		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
 	
 	
@@ -78,6 +82,7 @@ public class Relaciones {
 		miNacimientoDao.setCoordinador(miCoordinador);
 		miMascotaDao.setCoordinador(miCoordinador);
 		miProductoDao.setCoordinador(miCoordinador);
+		miVentanaEliminarP.setCoordinador(miCoordinador);
 		//miPersonaProductoDao.setCoordinador(miCoordinador);
 
 		//Se muestra la ventana principal.

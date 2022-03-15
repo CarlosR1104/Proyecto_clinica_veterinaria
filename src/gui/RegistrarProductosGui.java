@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -109,6 +111,7 @@ public class RegistrarProductosGui extends JDialog implements ActionListener{
 			miProductoVo.setNombreProducto(txtNombre.getText());
 			miProductoVo.setPrecioProducto(Double.parseDouble(txtPrecio.getText()));
 			miCoordinador.registrarProductos(miProductoVo);
+			JOptionPane.showMessageDialog(null, "Producto registrado exitosamente");
 		}
 	}
 

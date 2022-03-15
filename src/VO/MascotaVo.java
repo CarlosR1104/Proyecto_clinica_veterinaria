@@ -76,7 +76,7 @@ public class MascotaVo {
 	public String toString() {
 		return "MascotaVo [idMascota=" + idMascota + ", nombre=" + nombre + ","
 				+"raza=" + raza + ", colorMascota="
-				+ colorMascota + ", sexo=" + sexo + "Dueño"+Persona+"]";
+				+ colorMascota + ", sexo=" + sexo + ",Dueño "+Persona+"]";
 	}
 	
 
