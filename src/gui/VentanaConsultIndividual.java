@@ -54,27 +54,7 @@ public class VentanaConsultIndividual extends JDialog implements ActionListener 
 		btnConsultar.addActionListener(this);
 		panel.add(btnConsultar);
 
-		btnConsultarM = new JButton("Buscar Mascota");
-		btnConsultarM.setBounds(330, 70, 150, 24);
-		btnConsultarM.addActionListener(this);
-		panel.add(btnConsultarM);
-
-		area = new JTextArea();
-
-		scroll = new JScrollPane(area);
-		scroll.setBounds(20, 100, 420, 200);
-		panel.add(scroll);
-
-		btnConsultarP = new JButton("Buscar Producto");
-		btnConsultarP.setBounds(330, 10, 150, 20);
-		btnConsultarP.addActionListener(this);
-		panel.add(btnConsultarP);
-
-		btnActualizarM = new JButton("Editar Mascota");
-		btnActualizarM.setBounds(10, 320, 150, 30);
-		btnActualizarM.addActionListener(this);
-		panel.add(btnActualizarM);
-
+		
 		btnActualizarP = new JButton("Editar Producto");
 		btnActualizarP.setBounds(200, 320, 150, 30);
 		btnActualizarP.addActionListener(this);

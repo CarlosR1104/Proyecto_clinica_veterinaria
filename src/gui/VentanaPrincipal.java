@@ -153,21 +153,29 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			miCoordinador.mostrarConsultaIndividual();
 		}
 		if (e.getSource() == itemConsultarMascotas) {
-			miCoordinador.mostrarConsultaIndividual();
+			miCoordinador.mostrarEliminarMascotas();
 		}
 		if (e.getSource() == itemEliminarMascotas) {
 			miCoordinador.mostrarEliminarMascotas();
 		}
 		if (e.getSource() == itemConsultaProductos) {
-			miCoordinador.mostrarConsultaIndividual();
+			miCoordinador.mostrarEliminarProductos();
 		}
 		if (e.getSource() == itemEliminarProductos) {
-			miCoordinador.mostrarEliminarMascotas();
+			miCoordinador.mostrarEliminarProductos();
 		}
 		if (e.getSource() == itemEliminarPersonas) {
 			miCoordinador.mostrarEliminarMascotas();
 		}
-		
+		if (e.getSource() == itemActualizarMascotas) {
+			miCoordinador.mostrarEliminarMascotas();
+		}
+		if (e.getSource() == itemActualizarProductos) {
+			miCoordinador.mostrarEliminarProductos();
+		}
+		if (e.getSource() == itemEliminarProductos) {
+			miCoordinador.mostrarEliminarProductos();
+		}
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {
