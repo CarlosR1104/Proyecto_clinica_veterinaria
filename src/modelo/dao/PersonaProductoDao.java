@@ -63,9 +63,9 @@ public class PersonaProductoDao {
 		connection = miConexion.getConnection();
 
 		PersonasProductosVo misPersonasProductos= null;
-		PersonaVo miPersona = null;
 		
-		String consulta = "SELECT * FROM personas_productos where id_persona= ? ";
+		
+		String consulta = "SELECT * FROM personas_productos where persona_id= ? ";
 
 		try {
 			if (connection != null) {
@@ -125,7 +125,7 @@ public class PersonaProductoDao {
 		
 	}
 	
-	public String borrarProductosPersona(Long idPersona) {
+	public String borrarProductosPersona(Long idPersona)throws SQLException {
 		Connection connection = null;
 		Conexion miConexion = new Conexion();
 		PreparedStatement statement = null;
@@ -145,8 +145,9 @@ public class PersonaProductoDao {
 				statement.setLong(1, idPersona);
 
 				result = statement.executeQuery();
+				
 				resultado = "ok";
-				miConexion.desconectar();
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("Error en la eliminacion del producto de la persona: " + e.getMessage());
@@ -155,7 +156,56 @@ public class PersonaProductoDao {
 			System.out.println("Error en la eliminacion del producto de la persona: " + e.getMessage());
 			resultado = "error";
 		}
+		finally {
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+		}
 		return resultado;
 	}
-
+	
+	
+	/**
+public PersonasProductosVo consultarPersonaproducto(Long id_persona)throws SQLException {
+		
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		PersonasProductosVo p=null;
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM mascotas where id_persona= ? ";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				statement.setLong(1, id_persona);
+				
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					p=new PersonasProductosVo();
+					p.setPersonaId(Long.parseLong(result.getString("id_persona")));
+					p.setProductoId((Long.parseLong(result.getString("id_persona")))); 
+			
+				}
+				
+				
+			}else{
+			p=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la mascota: "+e.getMessage());
+		}
+		finally {
+			statement.close();
+			result.close();  
+			miConexion.desconectar();
+		}
+			return p;
+	}
+**/
 }

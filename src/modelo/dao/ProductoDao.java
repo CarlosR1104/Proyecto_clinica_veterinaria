@@ -167,7 +167,38 @@ public class ProductoDao {
 		return resultado;
 	}
 
+	public String borrarProduct(Long id_perosna) {
+		Connection connection = null;
+		Conexion miConexion = new Conexion();
+		PreparedStatement statement = null;
+		ResultSet result = null;
 
+		connection = miConexion.getConnection();
+		
+		String resultado = "";
+		
+		ProductoVo miProducto = null;
+
+		try {
+			if (connection != null) {
+				
+				String consulta = "DELETE FROM productos WHERE nombre_producto = ? ";
+				
+				statement = connection.prepareStatement(consulta);
+				statement.setLong(1, id_perosna);
+				statement.executeUpdate();
+				
+				resultado = "ok";
+			}
+		} catch (SQLException e) {
+			System.out.println("Error en la eliminacion del producto: " + e.getMessage());
+			resultado = "error";
+		} catch (Exception e) {
+			System.out.println("Error en la eliminacion del producto: " + e.getMessage());
+			resultado = "error";
+		}
+		return resultado;
+	}
 
 
 }

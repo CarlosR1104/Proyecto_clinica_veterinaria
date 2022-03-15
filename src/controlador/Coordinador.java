@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import VO.MascotaVo;
 import VO.Nacimiento;
 import VO.PersonaVo;
+import VO.PersonasProductosVo;
 import VO.ProductoVo;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
@@ -18,6 +19,7 @@ import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.PersonaProductoDao;
 import modelo.dao.ProductoDao;
 
 public class Coordinador {
@@ -34,9 +36,13 @@ public class Coordinador {
 	VentanaEliminar miVentanaEliminar;
 	ProductoDao miProductoDao;
 	VentanaEliminarProductos miVentanaEliminarP;
-	//PersonaProductoDao miPersonaProductoDao;
+	PersonaProductoDao miPersonaProductoDao;
 
 	
+	public void setMiPersonaProductoDao(PersonaProductoDao miPersonaProductoDao) {
+		this.miPersonaProductoDao = miPersonaProductoDao;
+	}
+
 	public void setVentanaPrincipal(VentanaPrincipal miVentanaPrincipal) {
 	this.miVentanaPrincipal=miVentanaPrincipal;
 	}
@@ -129,14 +135,14 @@ public class Coordinador {
 		return f;
 	}
 		
-	public long registrarMascota(MascotaVo m) {
-		Long h= null;
+	public String registrarMascota(MascotaVo m) {
+		String resultado="";
 		try {
-			h=miMascotaDao.registrarMascota(m);
+			resultado=miMascotaDao.registrarMascota(m);
 		} catch (Exception e) {
-			h = null;
+			 System.out.println("errror");
 		}
-		return h;
+		return resultado;
 		
 	}
 	
@@ -199,11 +205,10 @@ public class Coordinador {
 		return m;
 	}
 		
-	public String eliminarMascota (Long idMascota) {
+	public String eliminarMascota (Long idpersona) {
 		String em = null;
 		try {
-			em = miMascotaDao.borrarMascota(idMascota);
-			em = "Eliminado";
+			em = miMascotaDao.borrarMascota(idpersona);
 		} catch (Exception e) {
 			em = "error";
 		}
@@ -218,7 +223,7 @@ public class Coordinador {
 			validar=miPersonaDao.eliminarPersonaDao(idDocumento);
 			System.out.println(validar);
 		} catch (Exception e) {
-			validar="error al validar una persona para eliminar";
+			validar="error al eliminar personavo";
 		}
 		return validar;
 	}
@@ -230,7 +235,7 @@ public class Coordinador {
 		} catch (Exception e) {
 			validar="error con eliminar mi nacimiento";
 		}
-		return null;
+		return validar;
 	}
 
 	public String actualizaPersona(PersonaVo encontrado) {
@@ -260,9 +265,9 @@ public class Coordinador {
 		String em = null;
 		try {
 			em = miProductoDao.borrarProducto(nombre);
-			em = "Eliminado";
+			
 		} catch (Exception e) {
-			em = "error";
+			System.out.println("error en el proceso");
 		}
 		
 		return em;
@@ -293,4 +298,41 @@ public class Coordinador {
 		}
 		return r;
 	}
+	
+	public String eliminarProductoPersona(Long id_persona) {
+		String validar="";
+		try {
+			validar=miPersonaProductoDao.borrarProductosPersona(id_persona);
+		} catch (Exception e) {
+			validar="error con eliminar persona producto dao";
+		}
+		return validar;
+	}
+	
+	public PersonasProductosVo buscarPersonaProducto(Long id_persona) {
+		PersonasProductosVo p=null;
+		try {
+			p=miPersonaProductoDao.consultarPersonasProductos(id_persona);
+			
+		} catch (Exception e) {
+			System.out.println("Error en cordinador");
+			
+		}
+		return p;
+	}
+	
+	public String eliminarProduct (Long id_persona) {
+		String em = "";
+		try {
+			em = miProductoDao.borrarProduct(id_persona);
+			
+		} catch (Exception e) {
+			System.out.println("error en el proceso");
+		}
+		
+		return em;
+	}
+	
+
+	
 }

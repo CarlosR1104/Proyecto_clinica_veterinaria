@@ -12,6 +12,7 @@ import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.PersonaProductoDao;
 import modelo.dao.ProductoDao;
 
 public class Relaciones {
@@ -33,7 +34,7 @@ public class Relaciones {
 		MascotaDao miMascotaDao;
 		ProductoDao miProductoDao;
 		VentanaEliminarProductos miVentanaEliminarP;
-		//PersonaProductoDao miPersonaProductoDao;
+		PersonaProductoDao miPersonaProductoDao;
 		
 		
 		//Se instancian por unica ocasión las clases declaradas
@@ -51,7 +52,7 @@ public class Relaciones {
 		miMascotaDao= new MascotaDao();
 		miNacimientoDao= new NacimientoDao();
 		miProductoDao= new ProductoDao();
-		//miPersonaProductoDao= new PersonaProductoDao();
+		miPersonaProductoDao= new PersonaProductoDao();
 		
 		
 		//Se establece la relación entre el coordinador y cada instancia unica
@@ -67,8 +68,8 @@ public class Relaciones {
 		miCoordinador.setMascotaDao(miMascotaDao);
 		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setProductoDao(miProductoDao);
-		miCoordinador.setMiVentanaEliminarProductos(miVentanaEliminarP);
-		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
+		miCoordinador.setVentanaEliminarP(miVentanaEliminarP);
+		miCoordinador.setMiPersonaProductoDao(miPersonaProductoDao);
 	
 	
 		//A cada clase unica se le asigna la unica instancia del coordinador
@@ -83,7 +84,7 @@ public class Relaciones {
 		miMascotaDao.setCoordinador(miCoordinador);
 		miProductoDao.setCoordinador(miCoordinador);
 		miVentanaEliminarP.setCoordinador(miCoordinador);
-		//miPersonaProductoDao.setCoordinador(miCoordinador);
+		miPersonaProductoDao.setCoordinador(miCoordinador);
 
 		//Se muestra la ventana principal.
 		miVentanaPrincipal.setVisible(true);
