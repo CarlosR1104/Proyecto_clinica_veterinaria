@@ -2,6 +2,7 @@ package controlador;
 
 import java.text.ParseException;
 
+import gui.ConsultarPersonas;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -35,6 +36,8 @@ public class Relaciones {
 		ProductoDao miProductoDao;
 		VentanaEliminarProductos miVentanaEliminarP;
 		PersonaProductoDao miPersonaProductoDao;
+		ConsultarPersonas consultarPersonas;
+		
 		
 		
 		//Se instancian por unica ocasión las clases declaradas
@@ -46,6 +49,7 @@ public class Relaciones {
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
 		miVentanaEliminarP = new VentanaEliminarProductos();
+		consultarPersonas = new ConsultarPersonas();
 		
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
@@ -70,6 +74,7 @@ public class Relaciones {
 		miCoordinador.setProductoDao(miProductoDao);
 		miCoordinador.setVentanaEliminarP(miVentanaEliminarP);
 		miCoordinador.setMiPersonaProductoDao(miPersonaProductoDao);
+		miCoordinador.setConsultarPersonas(consultarPersonas);
 	
 	
 		//A cada clase unica se le asigna la unica instancia del coordinador
@@ -85,6 +90,8 @@ public class Relaciones {
 		miProductoDao.setCoordinador(miCoordinador);
 		miVentanaEliminarP.setCoordinador(miCoordinador);
 		miPersonaProductoDao.setCoordinador(miCoordinador);
+		consultarPersonas.setCoordinador(miCoordinador);
+		
 
 		//Se muestra la ventana principal.
 		miVentanaPrincipal.setVisible(true);
