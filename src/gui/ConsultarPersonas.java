@@ -36,8 +36,6 @@ public class ConsultarPersonas extends JDialog implements ActionListener{
 	private Coordinador miCoordinador;
 	private JScrollPane scroll;
 	private JTextField txtImprimir;
-	Nacimiento	nacimiento;
-	ArrayList<Nacimiento>listaNacimiento;
 	private JTextArea area;
 	
 	public ConsultarPersonas() {
@@ -66,20 +64,10 @@ public class ConsultarPersonas extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnConsultarPersonas) {
 			ArrayList<PersonaVo> lista = miCoordinador.consultarPersonas();
-			listaNacimiento=new ArrayList<Nacimiento>();//miCoordinador.consultarNacimiento();
+			ArrayList<Nacimiento>listaNacimiento=miCoordinador.consultarNacimiento();
+			
 			System.out.println("LISTA PERSONAS"+lista);
-			System.out.println("LISTA de nacimientos"+listaNacimiento);
-			
-			for (PersonaVo personaVo : lista) {
-			
-				nacimiento=personaVo.getNacimiento();
-				System.out.println(nacimiento);
-				listaNacimiento.add(nacimiento);
-				
-				
-			}
-			
-			
+			System.out.println("lista nbacimiento"+listaNacimiento);
 			System.out.println("iiii"+listaNacimiento);
 			Lista(lista,listaNacimiento);
 		}

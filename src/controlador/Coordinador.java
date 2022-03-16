@@ -373,5 +373,16 @@ public class Coordinador {
 		}
 	
 	}
+
+	
+	public ArrayList<Nacimiento> consultarNacimiento() {
+		try {
+			ArrayList<Nacimiento> listaN = miNacimientoDao.consultarListaNacimientos();
+			return listaN;
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
 	
 }

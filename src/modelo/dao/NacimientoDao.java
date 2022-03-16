@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import VO.Nacimiento;
 import VO.PersonaVo;
@@ -175,6 +176,56 @@ public class NacimientoDao {
 		}
 		return resultado;
 		
+	}
+	
+	public ArrayList<Nacimiento> consultarListaNacimientos() throws SQLException {
+		ArrayList<Nacimiento> listaNacimientos = new ArrayList<Nacimiento>();
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		
+		Nacimiento miNacimiento=null;
+				
+		connection=miConexion.getConnection();
+		
+		String consulta = "SELECT ciudad_nacimiento,departamento_nacimiento,fecha_nacimiento,pais_nacimiento"+" FROM nacimiento";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miNacimiento =new Nacimiento();
+					
+					miNacimiento.setCiudadNacimiento(result.getString("ciudad_nacimiento"));
+					miNacimiento.setDepartamentoNacimiento((result.getString("departamento_nacimiento")));
+					miNacimiento.setFechaNacimiento(LocalDate.parse(result.getDate("fecha_nacimiento")+""));
+					miNacimiento.setPaisNacimiento(result.getString("pais_nacimiento"));
+					
+					
+						
+					
+					listaNacimientos.add(miNacimiento);
+					
+				}		
+				   miConexion.desconectar();
+			}else{
+				miNacimiento=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la persona: "+e.getMessage());
+		}
+		finally {
+			result.close();
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+
+		}
+			return listaNacimientos;
 	}
 }
 
