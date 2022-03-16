@@ -76,6 +76,7 @@ public class PersonaProductoDao {
 
 				while (result.next() == true) {
 					misPersonasProductos = new PersonasProductosVo();
+					misPersonasProductos.setCodigo(result.getLong("codigo"));
 					misPersonasProductos.setPersonaId(result.getLong("persona_id"));
 					misPersonasProductos.setProductoId(result.getLong("producto_id"));
 				}
@@ -135,22 +136,26 @@ public class PersonaProductoDao {
 		
 		String resultado = "";
 		
-		PersonasProductosVo miPersonasProductosVo= null;
+		
 
 		String consulta = "DELETE FROM personas_productos where persona_id = ? ";
 
 		try {
+			
+			System.out.println("hola bb");
 			if (connection != null) {
 				statement = connection.prepareStatement(consulta);
 				statement.setLong(1, idPersona);
 
-				result = statement.executeQuery();
+				statement.executeUpdate();
 				
+				System.out.println("mirando que es"+statement);
 				resultado = "ok";
+				
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("Error en la eliminacion del producto de la persona: " + e.getMessage());
+			System.out.println("Error en la eliminacion del produc: " + e.getMessage());
 			resultado = "error";
 		} catch (Exception e) {
 			System.out.println("Error en la eliminacion del producto de la persona: " + e.getMessage());
@@ -161,6 +166,7 @@ public class PersonaProductoDao {
 			connection.close();
 			miConexion.desconectar();
 		}
+		System.out.println("EEEEEE"+resultado);
 		return resultado;
 	}
 	

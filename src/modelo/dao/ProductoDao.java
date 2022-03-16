@@ -200,5 +200,43 @@ public class ProductoDao {
 		return resultado;
 	}
 
+	
+	public ProductoVo consultarProductoId(Long idproducto) {
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		ProductoVo miProducto=null;
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM productos WHERE id_producto = ? ";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				statement.setLong(1, idproducto);
+				
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miProducto=new ProductoVo();
+					miProducto.setIdProducto(result.getLong("id_producto"));
+					miProducto.setNombreProducto(result.getString("nombre_producto"));
+					miProducto.setPrecioProducto(result.getDouble("precio_producto"));
+					
+				}		
+				statement.close();
+				result.close();   
+				miConexion.desconectar();
+			}else{
+				miProducto=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta del producto: "+e.getMessage());
+		}
+			return miProducto;
+	}
 
 }

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ import VO.PersonaVo;
 import controlador.Coordinador;
 import modelo.dao.NacimientoDao;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -37,6 +39,7 @@ public class ConsultarPersonas extends JDialog implements ActionListener{
 	private JScrollPane scroll;
 	private JTextField txtImprimir;
 	private JTextArea area;
+	private JLabel imagen;
 	
 	public ConsultarPersonas() {
 		
@@ -58,6 +61,12 @@ public class ConsultarPersonas extends JDialog implements ActionListener{
 		scroll = new JScrollPane ();
 		scroll.setBounds(10, 99, 776, 174);
 		contentPane.add(scroll);
+		
+		ImageIcon imagen2=new ImageIcon("dog.JPG");
+		imagen=new JLabel();
+		imagen.setBounds(0, 0, 800, 383);//agregamos la pocision de la imagen
+		imagen.setIcon(new ImageIcon(imagen2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
+		contentPane.add(imagen);
 	}
 
 	@Override

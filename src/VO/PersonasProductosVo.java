@@ -1,6 +1,7 @@
 package VO;
 
 public class PersonasProductosVo {
+	private Long codigo;
 	private Long personaId;
 	private Long productoId;
 	
@@ -29,10 +30,19 @@ public class PersonasProductosVo {
 	public void setProductoId(Long productoId) {
 		this.productoId = productoId;
 	}
+	
+
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
 	@Override
 	public String toString() {
-		return "PersonasProductosVo [personaId=" + personaId + ", productoId=" + productoId + "]";
+		return "PersonasProductosVo [codigo"+codigo+"personaId=" + personaId + ", productoId=" + productoId + "]";
 	}
 	
 	

@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -322,6 +323,7 @@ public class Coordinador {
 		String validar = "";
 		try {
 			validar = miPersonaProductoDao.borrarProductosPersona(id_persona);
+			System.out.println(validar);
 		} catch (Exception e) {
 			validar = "error con eliminar persona producto dao";
 		}
@@ -383,6 +385,23 @@ public class Coordinador {
 			return null;
 		}
 		
+	}
+	
+	public ProductoVo bucarProductoID(Long idProducto) {
+		ProductoVo p;
+		try {
+			p = miProductoDao.consultarProductoId(idProducto);
+
+		} catch (Exception e) {
+			p = null;
+		}
+		return p;
+	}
+	
+	public MascotaVo buscarMascotaIdPersona(long idPesona) {
+		MascotaVo m=null;
+		m=miMascotaDao.consultarMascotaIdPersona(idPesona);
+		return m;
 	}
 	
 }
