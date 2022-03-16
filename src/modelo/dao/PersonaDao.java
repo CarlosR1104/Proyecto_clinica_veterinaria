@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
 import VO.Nacimiento;
@@ -52,12 +54,12 @@ public class PersonaDao {
 
 		}catch (SQLException e) {
 			e.printStackTrace();
-			resultado = "No se pudo ";
+			JOptionPane.showMessageDialog(null, "Error no se pudo registrar");
 		}
 		catch (Exception e) {
 			System.out.println("No se pudo registrar la persona: " + e.getMessage());
 			e.printStackTrace();
-			resultado = "No se pudo registrar la persona";
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 		finally {
 			

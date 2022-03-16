@@ -1,12 +1,15 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.time.LocalDate;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
@@ -39,7 +42,7 @@ public class VentanaActualizarPersona extends JDialog implements ActionListener 
 	private JTextField txtCiudad;
 	private JTextField txtDepartamento;
 	private JTextField txtPais;
-
+	private JLabel imagen;
 	private JButton btnBuscar;
 	private JButton btnRegistrar;
 	private Coordinador miCoordinador;
@@ -84,6 +87,7 @@ public class VentanaActualizarPersona extends JDialog implements ActionListener 
 
 		JLabel lblNewLabel = new JLabel("Documento:");
 		lblNewLabel.setBounds(24, 22, 71, 21);
+		lblNewLabel.setForeground(Color.WHITE);
 		panel.add(lblNewLabel);
 
 		txtDocumento = new JTextField();
@@ -93,6 +97,7 @@ public class VentanaActualizarPersona extends JDialog implements ActionListener 
 
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(195, 22, 71, 21);
+		lblNombre.setForeground(Color.WHITE);
 		panel.add(lblNombre);
 
 		txtNombre = new JTextField();
@@ -102,24 +107,28 @@ public class VentanaActualizarPersona extends JDialog implements ActionListener 
 
 		JLabel lblTelefono = new JLabel("Telefono:");
 		lblTelefono.setBounds(24, 54, 71, 21);
+		lblTelefono.setForeground(Color.WHITE);
 		panel.add(lblTelefono);
 
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(99, 54, 86, 20);
+		txtTelefono.setBounds(78, 54, 86, 20);
 		panel.add(txtTelefono);
 
 		JLabel lblProfesion = new JLabel("Profesion:");
-		lblProfesion.setBounds(195, 54, 71, 21);
+		lblProfesion.setBounds(180, 54, 92, 21);
+		lblProfesion.setForeground(Color.WHITE);
+		lblProfesion.setFont(new Font("arial", 3, 15));
 		panel.add(lblProfesion);
 
 		txtProfesion = new JTextField();
 		txtProfesion.setColumns(10);
-		txtProfesion.setBounds(259, 54, 167, 20);
+		txtProfesion.setBounds(260, 54, 167, 20);
 		panel.add(txtProfesion);
 
 		JLabel lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(439, 54, 71, 21);
+		lblTipo.setBounds(433, 54, 71, 21);
+		lblTipo.setForeground(Color.WHITE);
 		panel.add(lblTipo);
 
 		txtTipo = new JTextField();
@@ -128,8 +137,7 @@ public class VentanaActualizarPersona extends JDialog implements ActionListener 
 		panel.add(txtTipo);
 
 		JPanel panelNacimiento = new JPanel();
-		panelNacimiento.setBorder(
-				new TitledBorder(null, "Datos de Nacimiento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelNacimiento.setBorder(new TitledBorder(null, "Datos de Nacimiento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelNacimiento.setBounds(24, 99, 538, 109);
 		panel.add(panelNacimiento);
 		panelNacimiento.setLayout(null);
@@ -206,6 +214,13 @@ public class VentanaActualizarPersona extends JDialog implements ActionListener 
 		btnRegistrar.addActionListener(this);
 		panel.add(btnRegistrar);
 
+		 
+		ImageIcon imagen2=new ImageIcon("dog.JPG");
+		imagen=new JLabel();
+		imagen.setBounds(0, 0, 600, 383);//agregamos la pocision de la imagen
+		imagen.setIcon(new ImageIcon(imagen2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
+		panel.add(imagen);
+		
 		invalidarCampos();
 
 	}

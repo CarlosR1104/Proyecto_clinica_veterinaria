@@ -89,8 +89,8 @@ public class PersonaVo {
 	public String toString() {
 		return "Documento: " + idPesona + "\n" 
 				+ "Nombre: " + nombre + "\n"+
-				" Telefono: " + telefono +"\n"+ 
+				"Telefono: " + telefono +"\n"+ 
 				"profesion: "+ profesion + "\n"+ 
-				"Tipo=" + tipo + "\n" ;
+				"Tipo: " + tipo + "\n" ;
 	}
 }
