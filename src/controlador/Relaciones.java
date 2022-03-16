@@ -2,6 +2,7 @@ package controlador;
 
 import java.text.ParseException;
 
+import gui.ConsultarPersonas;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -33,6 +34,7 @@ public class Relaciones {
 		MascotaDao miMascotaDao;
 		ProductoDao miProductoDao;
 		VentanaEliminarProductos miVentanaEliminarP;
+		ConsultarPersonas consultarPersonas;
 		//PersonaProductoDao miPersonaProductoDao;
 		
 		
@@ -45,6 +47,7 @@ public class Relaciones {
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
 		miVentanaEliminarP = new VentanaEliminarProductos();
+		consultarPersonas = new ConsultarPersonas();
 		
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
@@ -67,7 +70,8 @@ public class Relaciones {
 		miCoordinador.setMascotaDao(miMascotaDao);
 		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setProductoDao(miProductoDao);
-		miCoordinador.setMiVentanaEliminarProductos(miVentanaEliminarP);
+		miCoordinador.setVentanaEliminarP(miVentanaEliminarP);
+		miCoordinador.setConsultarPersonas(consultarPersonas);
 		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
 	
 	
@@ -83,6 +87,7 @@ public class Relaciones {
 		miMascotaDao.setCoordinador(miCoordinador);
 		miProductoDao.setCoordinador(miCoordinador);
 		miVentanaEliminarP.setCoordinador(miCoordinador);
+		consultarPersonas.setCoordinador(miCoordinador);
 		//miPersonaProductoDao.setCoordinador(miCoordinador);
 
 		//Se muestra la ventana principal.
