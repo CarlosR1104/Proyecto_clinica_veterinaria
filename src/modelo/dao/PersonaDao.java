@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
 import VO.Nacimiento;
@@ -52,12 +54,12 @@ public class PersonaDao {
 
 		}catch (SQLException e) {
 			e.printStackTrace();
-			resultado = "No se pudo ";
+			JOptionPane.showMessageDialog(null, "Error no se pudo registrar");
 		}
 		catch (Exception e) {
 			System.out.println("No se pudo registrar la persona: " + e.getMessage());
 			e.printStackTrace();
-			resultado = "No se pudo registrar la persona";
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 		finally {
 			
@@ -218,6 +220,7 @@ public class PersonaDao {
 		
 	}
 	public String eliminarPersonaDao(long idDocumento) throws SQLException{
+		
 		System.out.println("hola");
 		String respuesta="";
 		Connection connection=null;
@@ -226,7 +229,9 @@ public class PersonaDao {
 			
 		connection=miConexion.getConnection();
 		try {
-			String Sentencia = "Delete from persona Where id_persona=?";
+			
+			String Sentencia = " Delete from persona Where id_persona = ? ";
+			
 			statement=connection.prepareStatement(Sentencia);
 			statement.setLong(1, idDocumento);
 			statement.executeUpdate();

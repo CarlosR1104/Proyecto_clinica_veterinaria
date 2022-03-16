@@ -6,6 +6,7 @@ import gui.ConsultarPersonas;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
+import gui.VentanaActualizarPersona;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
 import gui.VentanaEliminarProductos;
@@ -13,6 +14,7 @@ import gui.VentanaPrincipal;
 import modelo.dao.MascotaDao;
 import modelo.dao.NacimientoDao;
 import modelo.dao.PersonaDao;
+import modelo.dao.PersonaProductoDao;
 import modelo.dao.ProductoDao;
 
 public class Relaciones {
@@ -21,7 +23,7 @@ public class Relaciones {
 		
 		
 		//Se declaran las clases que van a representar instancias unicas
-		
+		VentanaActualizarPersona miVentanaActualizarPersona;
 		VentanaPrincipal miVentanaPrincipal;
 		VentanaConsultIndividual miVentanaConsultIndividual;
 		VentanaEliminar miVentanaEliminar;
@@ -34,8 +36,9 @@ public class Relaciones {
 		MascotaDao miMascotaDao;
 		ProductoDao miProductoDao;
 		VentanaEliminarProductos miVentanaEliminarP;
+		PersonaProductoDao miPersonaProductoDao;
 		ConsultarPersonas consultarPersonas;
-		//PersonaProductoDao miPersonaProductoDao;
+		
 		
 		
 		//Se instancian por unica ocasión las clases declaradas
@@ -43,6 +46,7 @@ public class Relaciones {
 		miVentanaPrincipal= new VentanaPrincipal();
 		miVentanaConsultIndividual=new VentanaConsultIndividual();
 		miVentanaEliminar = new VentanaEliminar();
+		miVentanaActualizarPersona=new VentanaActualizarPersona(miVentanaPrincipal,true);
 		miRegistrarPersonasGui= new RegistrarPersonasGui(miVentanaPrincipal, true);
 		miRegistrarMascotasGui= new RegistrarMascotasGui(miVentanaPrincipal, true,"");
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
@@ -54,13 +58,14 @@ public class Relaciones {
 		miMascotaDao= new MascotaDao();
 		miNacimientoDao= new NacimientoDao();
 		miProductoDao= new ProductoDao();
-		//miPersonaProductoDao= new PersonaProductoDao();
+		miPersonaProductoDao= new PersonaProductoDao();
 		
 		
 		//Se establece la relación entre el coordinador y cada instancia unica
 		//Al coordinador se le asigna el control de cada clase unica
 		
 		miCoordinador.setVentanaPrincipal(miVentanaPrincipal);
+		miCoordinador.setMiVentanaActualizarPersona(miVentanaActualizarPersona);
 		miCoordinador.setMiVentanaConsultIndividual(miVentanaConsultIndividual);
 		miCoordinador.setVentanaEliminar(miVentanaEliminar);
 		miCoordinador.setRegistrarPersonasGui(miRegistrarPersonasGui);
@@ -71,12 +76,13 @@ public class Relaciones {
 		miCoordinador.setNacimientoDao(miNacimientoDao);
 		miCoordinador.setProductoDao(miProductoDao);
 		miCoordinador.setVentanaEliminarP(miVentanaEliminarP);
+		miCoordinador.setMiPersonaProductoDao(miPersonaProductoDao);
 		miCoordinador.setConsultarPersonas(consultarPersonas);
-		//miCoordinador.setPersonaProductoDao(miPersonaProductoDao);
 	
 	
 		//A cada clase unica se le asigna la unica instancia del coordinador
 		miVentanaPrincipal.setCoordinador(miCoordinador);
+		miVentanaActualizarPersona.setCoordinador(miCoordinador);
 		miVentanaConsultIndividual.setMiCoordinador(miCoordinador);
 		miVentanaEliminar.setCoordinador(miCoordinador);
 		miRegistrarPersonasGui.setCoordinador(miCoordinador);
@@ -87,8 +93,9 @@ public class Relaciones {
 		miMascotaDao.setCoordinador(miCoordinador);
 		miProductoDao.setCoordinador(miCoordinador);
 		miVentanaEliminarP.setCoordinador(miCoordinador);
+		miPersonaProductoDao.setCoordinador(miCoordinador);
 		consultarPersonas.setCoordinador(miCoordinador);
-		//miPersonaProductoDao.setCoordinador(miCoordinador);
+		
 
 		//Se muestra la ventana principal.
 		miVentanaPrincipal.setVisible(true);
