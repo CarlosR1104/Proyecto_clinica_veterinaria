@@ -41,6 +41,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenuItem itemConsultaProductos;
 	private JMenuItem itemRegistroProductos;
 	private Coordinador miCoordinador;
+	private JMenuItem itemConsultaPersonas;
 
 	/**
 	 * Create the frame.
@@ -136,6 +137,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		JLabel lblImagen = new JLabel();
 		lblImagen.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/veterinario.jpg")));
 		panel.add(lblImagen, BorderLayout.CENTER);
+		
+		itemConsultaPersonas = new JMenuItem("Consultar Total");
+		itemConsultaPersonas.addActionListener(this);
+		menuPersonas.add(itemConsultaPersonas);
 	}
 
 	@Override
@@ -177,6 +182,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 		if (e.getSource() == itemEliminarProductos) {
 			miCoordinador.mostrarEliminarProductos();
+		}
+		if (e.getSource() == itemConsultaPersonas) {
+			miCoordinador.mostrarConsultarPersonas();
 		}
 	}
 

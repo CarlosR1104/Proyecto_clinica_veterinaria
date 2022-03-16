@@ -9,6 +9,7 @@ import VO.Nacimiento;
 import VO.PersonaVo;
 import VO.PersonasProductosVo;
 import VO.ProductoVo;
+import gui.ConsultarPersonas;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -38,6 +39,8 @@ public class Coordinador {
 	VentanaActualizarPersona miVentanaActualizarPersona;
 	VentanaEliminarProductos miVentanaEliminarP;
 	PersonaProductoDao miPersonaProductoDao;
+	ConsultarPersonas consultarPersonas;
+	
 
 	public void setMiPersonaProductoDao(PersonaProductoDao miPersonaProductoDao) {
 		this.miPersonaProductoDao = miPersonaProductoDao;
@@ -91,6 +94,13 @@ public class Coordinador {
 		this.miVentanaEliminar = miVentanaEliminar;
 	}
 
+
+	
+	public void setConsultarPersonas(ConsultarPersonas consultarPersonas) {
+		this.consultarPersonas = consultarPersonas;
+	}
+
+
 	public void mostrarRegistroPersonas() {
 		miRegistrarPersonasGui.setVisible(true);
 	}
@@ -118,6 +128,12 @@ public class Coordinador {
 	public void mostrarEliminarProductos() {
 		miVentanaEliminarP.setVisible(true);
 	}
+
+	
+	public void mostrarConsultarPersonas() {
+		consultarPersonas.setVisible(true);
+	}
+	
 
 	public String registrarPersonas(PersonaVo p) {
 		String registrar = "";
@@ -346,4 +362,16 @@ public class Coordinador {
 		return encontrado;
 	}
 
+
+
+	public ArrayList<PersonaVo> consultarPersonas() {
+		try {
+			ArrayList<PersonaVo> LISTApersonas = miPersonaDao.consultarListaPersona();
+			return LISTApersonas;
+		} catch (Exception e) {
+			return null;
+		}
+	
+	}
+	
 }
