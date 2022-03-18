@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -13,6 +14,8 @@ import gui.ConsultarPersonas;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
+import gui.VentanaActalizarProducto;
+import gui.VentanaActualizarMascota;
 import gui.VentanaActualizarPersona;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
@@ -40,7 +43,18 @@ public class Coordinador {
 	VentanaEliminarProductos miVentanaEliminarP;
 	PersonaProductoDao miPersonaProductoDao;
 	ConsultarPersonas consultarPersonas;
+	VentanaActualizarMascota actualizarMascota;
+	VentanaActalizarProducto actalizarProducto;
+
 	
+	
+	public void setActalizarProducto(VentanaActalizarProducto actalizarProducto) {
+		this.actalizarProducto = actalizarProducto;
+	}
+
+	public void setActualizarMascota(VentanaActualizarMascota actualizarMascota) {
+		this.actualizarMascota = actualizarMascota;
+	}
 
 	public void setMiPersonaProductoDao(PersonaProductoDao miPersonaProductoDao) {
 		this.miPersonaProductoDao = miPersonaProductoDao;
@@ -104,6 +118,10 @@ public class Coordinador {
 	public void mostrarRegistroPersonas() {
 		miRegistrarPersonasGui.setVisible(true);
 	}
+	
+	public void mostrarActualizarMascota() {
+		actualizarMascota.setVisible(true);
+	}
 
 	public void mostrarEliminarMascotas() {
 		miVentanaEliminar.setVisible(true);
@@ -132,6 +150,10 @@ public class Coordinador {
 	
 	public void mostrarConsultarPersonas() {
 		consultarPersonas.setVisible(true);
+	}
+	
+	public void mostrarVentanaActualizarProducto() {
+		actalizarProducto.setVisible(true);
 	}
 	
 
@@ -306,14 +328,14 @@ public class Coordinador {
 	}
 
 	public String actualizarProducto(ProductoVo miProducto) {
-		String r = null;
+		String r = "";
 		try {
 			r = miProductoDao.actualizarProducto(miProducto);
-			r = "ok";
+			
 			System.out.println(miProducto);
 		} catch (Exception e) {
 			r = "ERROR";
-			miProducto = null;
+			
 		}
 		return r;
 	}
@@ -322,6 +344,7 @@ public class Coordinador {
 		String validar = "";
 		try {
 			validar = miPersonaProductoDao.borrarProductosPersona(id_persona);
+			System.out.println(validar);
 		} catch (Exception e) {
 			validar = "error con eliminar persona producto dao";
 		}
@@ -332,6 +355,18 @@ public class Coordinador {
 		PersonasProductosVo p = null;
 		try {
 			p = miPersonaProductoDao.consultarPersonasProductos(id_persona);
+
+		} catch (Exception e) {
+			System.out.println("Error en cordinador");
+
+		}
+		return p;
+	}
+	
+	public PersonasProductosVo buscarPersonaPro(Long id_producto) {
+		PersonasProductosVo p = null;
+		try {
+			p = miPersonaProductoDao.consultarPersonaproducto(id_producto);
 
 		} catch (Exception e) {
 			System.out.println("Error en cordinador");
@@ -383,6 +418,25 @@ public class Coordinador {
 			return null;
 		}
 		
+	}
+	
+	public ProductoVo bucarProductoID(Long idProducto) {
+		ProductoVo p=null;
+		System.out.println("++++++++++"+idProducto);
+		try {
+			p = miProductoDao.consultarProductoId(idProducto);
+			System.out.println("error al encontrar el producto: "+p);
+		} catch (Exception e) {
+			p = null;
+			System.out.println("EEerror al encontrar el producto: "+p);
+		}
+		return p;
+	}
+	
+	public MascotaVo buscarMascotaIdPersona(long idPesona) {
+		MascotaVo m=null;
+		m=miMascotaDao.consultarMascotaIdPersona(idPesona);
+		return m;
 	}
 	
 }

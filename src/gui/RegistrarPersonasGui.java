@@ -223,12 +223,13 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAgregarMascotas) {
-
+			
 			RegistrarMascotasGui ventanaGestionMascotas = new RegistrarMascotasGui(null, true, txtDocumento.getText());
 			miCoordinador.setRegistrarMascotasGui(ventanaGestionMascotas);
 			ventanaGestionMascotas.setCoordinador(miCoordinador);
 			ventanaGestionMascotas.setVisible(true);
 
+			
 		}
 
 		try {

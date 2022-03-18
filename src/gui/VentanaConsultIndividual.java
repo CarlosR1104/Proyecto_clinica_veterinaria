@@ -16,12 +16,9 @@ import controlador.Coordinador;
 import modelo.dao.PersonaProductoDao;
 
 public class VentanaConsultIndividual extends JDialog implements ActionListener {
+	
 	private JTextField txtDocumento;
-
-	private JButton btnConsultar, btnConsultarM, btnEliminarPersona, btnActualizar;
-
-	private JButton btnActualizarM, btnConsultarP, btnActualizarP;
-
+	private JButton btnConsultar, btnEliminarPersona;
 	private JPanel panel;
 	private JTextArea area;
 	private JScrollPane scroll;
@@ -43,7 +40,7 @@ public class VentanaConsultIndividual extends JDialog implements ActionListener 
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(null);
-		
+
 		setContentPane(panel);
 
 		JLabel etiDocumento = new JLabel("Documento");
@@ -71,72 +68,91 @@ public class VentanaConsultIndividual extends JDialog implements ActionListener 
 		area = new JTextArea();
 		area.setFont(new Font("arial", 3, 15));
 		area.setEditable(false);
-		
-		
-		scroll=new JScrollPane(area);
+
+		scroll = new JScrollPane(area);
 		scroll.setBounds(100, 100, 350, 200);
 		panel.add(scroll);
-		
-		 
-		ImageIcon imagen2=new ImageIcon("dog.JPG");
-		imagen=new JLabel();
-		imagen.setBounds(0, 0, 600, 383);//agregamos la pocision de la imagen
-		imagen.setIcon(new ImageIcon(imagen2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
+
+		ImageIcon imagen2 = new ImageIcon("dog.JPG");
+		imagen = new JLabel();
+		imagen.setBounds(0, 0, 600, 383);// agregamos la pocision de la imagen
+		imagen.setIcon(new ImageIcon(
+				imagen2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_SMOOTH)));
 		panel.add(imagen);
-		
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			
 		
-		if (e.getSource() == btnConsultar) {
-			PersonaVo p = miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
-			if(p!=null) {
-				Nacimiento n = miCoordinador.buscarNacimiento(p.getNacimiento().getIdNacimiento());
-				area.setText("" + p + n);
-				btnEliminarPersona.setEnabled(true);
-			}else {
+			if (e.getSource() == btnConsultar) {
+				try {
+					
+				PersonaVo p = miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
+				if (p != null) {
+					Nacimiento n = miCoordinador.buscarNacimiento(p.getNacimiento().getIdNacimiento());
+					MascotaVo m= miCoordinador.buscarMascotaIdPersona(p.getIdPesona());
+					PersonasProductosVo Personap = miCoordinador.buscarPersonaProducto(p.getIdPesona());// A
+					if(Personap!=null) {
+						ProductoVo  pv=miCoordinador.bucarProductoID(Personap.getProductoId());
+						area.setText("\tDatos del dueño\n\n" + p + n+"\n\n\tDatos de la mascota\n"+m.cadenaMascota()+
+								"\n\n\tDatos de productos Comprados\n\n"+pv);
+						btnEliminarPersona.setEnabled(true);
+					}else {
+						area.setText("\tDatos del dueño\n\n" + p + n+"\n\n\tDatos de la mascota\n"+m.cadenaMascota());
+						btnEliminarPersona.setEnabled(true);
+					}
+					
+				} else {
 
-				JOptionPane.showMessageDialog(null, "Es posible que el numero este mal o no exista en la base de datos", "Nota",
-						JOptionPane.INFORMATION_MESSAGE); 
-			}
+					JOptionPane.showMessageDialog(null,
+							"Es posible que el numero este mal o no exista en la base de datos", "Nota",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null,
+							"Verifique el campo", "Nota",
+							JOptionPane.INFORMATION_MESSAGE);
+				
+				}
+
+			} else if (e.getSource() == btnEliminarPersona) {
+				
+				
+				System.out.println("esto em el boton eliminar personas");
+
+				PersonaVo p = miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
+				System.out.println(p);
+
+				String respuestaMascota = miCoordinador.eliminarMascota(p.getIdPesona());
+				System.out.println("hbhbhb " + respuestaMascota);
+
+				if (respuestaMascota.equalsIgnoreCase("ok")) {
+					System.out.println("estoy el if de confirmacion de la respuestaMoscota");
+
+					String repuestaProducto = miCoordinador.eliminarProductoPersona(p.getIdPesona());// A
+					System.out.println("mirando pesona respuesta de productos:===  " + repuestaProducto);
+					
+
+					String respuesta = miCoordinador.eliminarPersona(Long.parseLong(txtDocumento.getText()));
+					
+					
+					System.out.println("respuesta eliminarpersona " + respuesta);
+
+					String respuestaNacimiento = miCoordinador.eliminarNaciminto(p.getNacimiento().getIdNacimiento());
+					System.out.println("respuesta naacimiento " + respuestaNacimiento);
+					
+					JOptionPane.showMessageDialog(null, "se logro borrar la persona exitosamente", "Nota",
+							JOptionPane.INFORMATION_MESSAGE);
+					area.setText("");
+					btnEliminarPersona.setEnabled(false);
+
+					}
+
+				}
+
 		
-
-		} else if (e.getSource() == btnEliminarPersona) {
-			System.out.println("esto em el boton eliminar personas");
-
-			PersonaVo p = miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
-			System.out.println(p);
-			
-			String respuestaMascota = miCoordinador.eliminarMascota(p.getIdPesona());
-			System.out.println("hbhbhb " + respuestaMascota);
-
-			if (respuestaMascota.equalsIgnoreCase("ok")) {
-				System.out.println("estoy el if de confirmacion de la respuestaMoscota");
-					
-				String respuesta = miCoordinador.eliminarPersona(Long.parseLong(txtDocumento.getText()));
-				System.out.println("respuesta eliminarpersona "+respuesta);
-				
-				String respuestaNacimiento = miCoordinador.eliminarNaciminto(p.getNacimiento().getIdNacimiento());
-				System.out.println("respuesta naacimiento "+respuestaNacimiento);
-					
-				
-				
-				JOptionPane.showMessageDialog(null, "se logro borrar la persona exitosamente", "Nota",
-						JOptionPane.INFORMATION_MESSAGE);
-				area.setText("");
-				btnEliminarPersona.setEnabled(false);				
-
-			}
-
-		}
-		} catch (Exception e2) {
-			JOptionPane.showMessageDialog(null, "Verifique el campo ", "Nota",
-					JOptionPane.INFORMATION_MESSAGE);
-		}
 
 	}
 
@@ -146,13 +162,3 @@ public class VentanaConsultIndividual extends JDialog implements ActionListener 
 
 }
 
-/**
- * //PersonasProductosVo Personap = miCoordinador.buscarPersonaProducto(p.getIdPesona());
-				//System.out.println("####" + Personap);
-
-				//String respuestaP = miCoordinador.eliminarProduct(Personap.getPersonaId());
-
-				//System.out.println("persona producto respuesta "+respuestaP);
-				 * //String repuestaProducto = miCoordinador.eliminarProductoPersona(p.getIdPesona());
-				//System.out.println("eliminar productopersona "+repuestaProducto);
- */

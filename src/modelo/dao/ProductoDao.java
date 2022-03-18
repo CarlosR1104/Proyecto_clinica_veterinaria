@@ -117,15 +117,16 @@ public class ProductoDao {
 			preStatement.setDouble(3, miProducto.getIdProducto());
 			preStatement.execute();
 			
+			resultado="ok";
 
 		} catch (SQLException e) {
 			System.out.println("No se pudo actualizar los datos del producto: " + e.getMessage());
 			e.printStackTrace();
-			idProducto = null;
+		
 		} catch (Exception e) {
 			System.out.println("No se pudo actualizar los datos del producto: " + e.getMessage());
 			e.printStackTrace();
-			idProducto = null;
+			
 		}
 		finally {
 			conexion.desconectar();
@@ -155,7 +156,7 @@ public class ProductoDao {
 				statement.setString(1,nombre);
 				statement.executeUpdate();
 				
-				resultado = "Eliminado DAO";
+				resultado = "ok";
 			}
 		} catch (SQLException e) {
 			System.out.println("Error en la eliminacion del producto: " + e.getMessage());
@@ -166,6 +167,8 @@ public class ProductoDao {
 		}
 		return resultado;
 	}
+	
+	
 
 	public String borrarProduct(Long id_perosna) {
 		Connection connection = null;
@@ -200,5 +203,57 @@ public class ProductoDao {
 		return resultado;
 	}
 
+	
+	public ProductoVo consultarProductoId(Long idproducto)throws SQLException {
+		
+		System.out.println("oooo"+idproducto);
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		ProductoVo miProducto=null;
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM productos WHERE id_producto = ? ";
+		System.out.println(consulta+"yyy");
+		
+		try {
+			if (connection!=null) {
+				
+				System.out.println("hola ll");
+				
+				statement=connection.prepareStatement(consulta);
+				statement.setLong(1, idproducto);
+				
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					System.out.println("aqi");
+					miProducto=new ProductoVo();
+					miProducto.setNombreProducto(result.getString("nombre_producto"));
+					miProducto.setPrecioProducto(result.getDouble("precio_producto"));
+					
+					System.out.println("hola "+miProducto);
+					
+					
+				}		
+				
+			}else{
+				miProducto=null;
+				System.out.println("4534dsdfdgs");
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta del producto: "+e.getMessage());
+		
+		}finally {
+			statement.close();
+			result.close();   
+			miConexion.desconectar();
+		}
+		
+			return miProducto;
+	}
 
 }

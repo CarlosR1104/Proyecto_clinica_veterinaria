@@ -191,5 +191,50 @@ public class MascotaDao {
 		return resultado;
 	}
 
+	public MascotaVo consultarMascotaIdPersona(long idPesona) {
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		PersonaVo miPersona=null;
+		MascotaVo miMascota=null;
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM mascotas where persona_id= ? ";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				statement.setLong(1, idPesona);
+				
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miMascota=new MascotaVo();
+					miMascota.setIdMascota(result.getLong("id_mascota"));
+					miMascota.setColorMascota(result.getString("color"));
+					miMascota.setNombre(result.getString("nombre"));
+					miMascota.setRaza(result.getString("raza"));
+					miMascota.setSexo(result.getString("sexo"));
+					
+					miPersona = new PersonaVo();
+					miPersona.setIdPesona(Long.parseLong(result.getString("persona_id")));
+					miMascota.setPersona(miPersona);		
+				}		
+				statement.close();
+				result.close();  
+				miConexion.desconectar();
+			}else{
+				miPersona=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la mascota: "+e.getMessage());
+		}
+			return miMascota;
+	
+	}
+
 	
 }

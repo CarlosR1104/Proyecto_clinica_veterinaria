@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import VO.MascotaVo;
+import VO.PersonaVo;
 import VO.ProductoVo;
 import controlador.Coordinador;
 
@@ -21,139 +24,91 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaEliminar extends JFrame implements ActionListener{
+public class VentanaEliminar extends JFrame implements ActionListener {
 
+	private JTextField txtDocumento;
+	private JButton btnConsultar, btnEliminarPersona, btnEliminar;
 	private JPanel contentPane;
-	private JLabel lblDocumento,etiNombre,etiColor,etiRaza,etiSexo,etiDueño;
-	private JTextField txtDocumento,txtId,txtNombre,txtColor,txtRaza,txtSexo,txtDueño;
-	private JButton btnEliminar,btnActualizarMascota,btnConfirmar;
-	private JTextArea txtArea;
+	private JTextArea area;
 	private JScrollPane scroll;
-	private Coordinador miCoordinador;
-	private JLabel etiId;
-	
+	Coordinador miCoordinador;
+
 	public VentanaEliminar() {
-		setBounds(100, 100, 450, 300);
+		setSize(624, 423);
+		setLayout(null);
+		setTitle("Consulta ");
+		setLocationRelativeTo(null);
 		setTitle("Eliminar");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		iniciarComponentes();		
+		iniciarComponentes();
 	}
 
 	private void iniciarComponentes() {
-		
+
 		contentPane.setLayout(null);
-		
-		lblDocumento = new JLabel("Ingrese el nombre");
-		lblDocumento.setBounds(10,10,150,20);
-		contentPane.add(lblDocumento);
-		
+
+		JLabel etiDocumento = new JLabel("Documento");
+		etiDocumento.setBounds(100, 40, 150, 24);
+		//etiDocumento.setFont(new Font("arial", 3, 20));
+		//etiDocumento.setForeground(Color.WHITE);
+		etiDocumento.setBackground(Color.BLACK);
+		contentPane.add(etiDocumento);
+
 		txtDocumento = new JTextField();
-		txtDocumento.setBounds(10,30,200,40);
+		txtDocumento.setBounds(230, 40, 150, 24);
 		contentPane.add(txtDocumento);
-	
-		btnEliminar = new JButton("Eliminar Mascota");
-		btnEliminar.setBounds(220,15,150,30);
+
+		btnConsultar = new JButton("Buscar");
+		btnConsultar.setBounds(400, 40, 100, 24);
+		btnConsultar.addActionListener(this);
+		contentPane.add(btnConsultar);
+
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(100, 310, 100, 24);
+		btnEliminar.setEnabled(false);
 		btnEliminar.addActionListener(this);
 		contentPane.add(btnEliminar);
-		
-		btnActualizarMascota= new JButton("Actualizar Mascota");
-		btnActualizarMascota.setBounds(220,50,150,30);
-		btnActualizarMascota.addActionListener(this);
-		contentPane.add(btnActualizarMascota);
-		
-		etiId = new JLabel("Id");
-		etiId.setBounds(10,80,100,20);
-		contentPane.add(etiId);
-		
-		txtId = new JTextField();
-		txtId.setBounds(80,80,100,30);
-		contentPane.add(txtId);
-		
-		etiSexo = new JLabel("Sexo");
-		etiSexo.setBounds(230,100,100,20);
-		contentPane.add(etiSexo);
-		
-		txtSexo = new JTextField();
-		txtSexo.setBounds(260,100,100,30);
-		contentPane.add(txtSexo);	
-		
-		etiDueño = new JLabel("Id Dueño");
-		etiDueño.setBounds(200,150,100,20);
-		contentPane.add(etiDueño);
-		
-		txtDueño = new JTextField();
-		txtDueño.setBounds(260,150,100,30);
-		contentPane.add(txtDueño);
-		
-		btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(260,190,100,40);
-		btnConfirmar.addActionListener(this);
-		btnConfirmar.setEnabled(false);
-		contentPane.add(btnConfirmar);
-		
-		etiNombre = new JLabel("Nombre");
-		etiNombre.setBounds(10,110,100,20);
-		contentPane.add(etiNombre);
-		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(80,120,100,30);
-		contentPane.add(txtNombre);
-		
-		etiColor = new JLabel("Color");
-		etiColor.setBounds(10,150,100,20);
-		contentPane.add(etiColor);
-		
-		txtColor = new JTextField();
-		txtColor.setBounds(80,160,100,30);
-		contentPane.add(txtColor);
-		
-		etiRaza = new JLabel("Raza");
-		etiRaza.setBounds(10,200,100,20);
-		contentPane.add(etiRaza);
-		
-		txtRaza = new JTextField();
-		txtRaza.setBounds(80,200,100,30);
-		contentPane.add(txtRaza);
 			
+		area = new JTextArea();
+		area.setFont(new Font("arial", 3, 15));
+		area.setEditable(false);
+
+		scroll = new JScrollPane(area);
+		scroll.setBounds(100, 100, 350, 200);
+		contentPane.add(scroll);
+
+		
+
+		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnEliminar) {
+		
+		
+		 if (e.getSource() == btnConsultar) {
+			MascotaVo miMascota = miCoordinador.buscarMascotaIdPersona(Long.parseLong(txtDocumento.getText()));
+			PersonaVo miPersonaVo=miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
+			if (miMascota != null) {
+				
+				area.setText("\n\tDatos de la Mascota\n" + miMascota.cadenaMascota()+"\n\n\tDatos del Dueño\n"+"\n  Nombre: "+
+			miPersonaVo.getNombre()+"\n  Telefono: "+miPersonaVo.getTelefono()+"\n  Documento: "+miPersonaVo.getIdPesona());
+				btnEliminar.setEnabled(true);
+
+			}
+
+		}else if (e.getSource() == btnEliminar) {
 			String eliminar = null;
 			MascotaVo m = miCoordinador.buscarMascota(txtDocumento.getText());
-			txtArea.setText("" + m);
+			area.setText("" + m);
 			eliminar = miCoordinador.eliminarMascota(Long.parseLong(txtDocumento.getText()));
 			System.out.println(eliminar);
 			JOptionPane.showMessageDialog(null, "Mascota eliminada exitosamente");
-		
-		}else if (e.getSource() == btnActualizarMascota) {
-			MascotaVo miMascota = miCoordinador.buscarMascota(txtDocumento.getText());
-			if (miMascota != null) {
-				txtId.setEnabled(false);
-				txtDueño.setEnabled(false);
-				txtId.setText(String.valueOf(miMascota.getIdMascota()));
-				txtNombre.setText(miMascota.getNombre());
-				txtColor.setText(miMascota.getColorMascota());
-				txtRaza.setText(miMascota.getRaza());
-				txtSexo.setText(miMascota.getSexo());
-				txtDueño.setText(String.valueOf(miMascota.getPersona().getIdPesona()));
-				btnConfirmar.setEnabled(true);
-			}
-			
-		}else if (e.getSource() == btnConfirmar) {
-			MascotaVo miMascota = miCoordinador.buscarMascota(txtDocumento.getText());
-			miMascota.setColorMascota(txtColor.getText());
-			miMascota.setNombre(txtNombre.getText());
-			miMascota.setRaza(txtRaza.getText());
-			miMascota.setSexo(txtSexo.getText());
-			String n = miCoordinador.actualizarMascota(miMascota);
-				if (n.equals("ok")) {
-					JOptionPane.showMessageDialog(null, "Mascota actualizada exitosamente");
-				}
+
 		}
 	}
 

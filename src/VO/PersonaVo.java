@@ -87,10 +87,10 @@ public class PersonaVo {
 
 	@Override
 	public String toString() {
-		return "Documento: " + idPesona + "\n" 
-				+ "Nombre: " + nombre + "\n"+
-				"Telefono: " + telefono +"\n"+ 
-				"profesion: "+ profesion + "\n"+ 
-				"Tipo: " + tipo + "\n" ;
+		return "  Documento: " + idPesona + "\n" 
+				+"  Nombre: " + nombre + "\n"+
+				"  Telefono: " + telefono +"\n"+ 
+				"  profesion: "+ profesion + "\n"+ 
+				"  Tipo: " + tipo + "\n" ;
 	}
 }
