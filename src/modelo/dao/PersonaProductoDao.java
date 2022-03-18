@@ -90,41 +90,7 @@ public class PersonaProductoDao {
 		return misPersonasProductos;
 	}
 	
-	public String actualizarProductosPersona(PersonasProductosVo misProductosPersona) {
-
-		Connection connection = null;
-		Conexion conexion = new Conexion();
-		PreparedStatement preStatement = null;
-
-		String resultado = "";
-		
-		ResultSet result=null;
-		
-		connection = conexion.getConnection();
-		String consulta = "UPDATE personas_productos SET persona_id = ?, producto_id = ? WHERE persona_id = ?";
-
-		try {
-			preStatement = connection.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);
-			preStatement.setDouble(1, misProductosPersona.getPersonaId());
-			preStatement.setDouble(2, misProductosPersona.getProductoId());
-			preStatement.execute();
-			
-			resultado = "ok";
-		} catch (SQLException e) {
-			System.out.println("No se pudo actualizar los datos del nacimiento: " + e.getMessage());
-			e.printStackTrace();
-			resultado = "Error";
-		} catch (Exception e) {
-			System.out.println("No se pudo actualizar los datos del nacimiento: " + e.getMessage());
-			e.printStackTrace();
-			resultado = "Error";
-		}
-		finally {
-			conexion.desconectar();
-		}
-		return resultado;
-		
-	}
+	
 	
 	public String borrarProductosPersona(Long idPersona)throws SQLException {
 		Connection connection = null;
@@ -171,9 +137,8 @@ public class PersonaProductoDao {
 	}
 	
 	
-	/**
-public PersonasProductosVo consultarPersonaproducto(Long id_persona)throws SQLException {
-		
+public PersonasProductosVo consultarPersonaproducto(Long id_producto)throws SQLException {
+		System.out.println(id_producto+"tttt");
 		Connection connection=null;
 		Conexion miConexion=new Conexion();
 		PreparedStatement statement=null;
@@ -183,28 +148,30 @@ public PersonasProductosVo consultarPersonaproducto(Long id_persona)throws SQLEx
 		
 		connection=miConexion.getConnection();
 		
-		String consulta="SELECT * FROM mascotas where id_persona= ? ";
+		String consulta="SELECT * FROM personas_productos where producto_id= ? ";
 		
 		try {
 			if (connection!=null) {
 				statement=connection.prepareStatement(consulta);
-				statement.setLong(1, id_persona);
+				statement.setLong(1, id_producto);
 				
 				result=statement.executeQuery();
 				
 				while(result.next()==true){
+					
 					p=new PersonasProductosVo();
-					p.setPersonaId(Long.parseLong(result.getString("id_persona")));
-					p.setProductoId((Long.parseLong(result.getString("id_persona")))); 
+					p.setPersonaId(Long.parseLong(result.getString("persona_id")));
+					p.setProductoId(Long.parseLong(result.getString("producto_id"))); 
 			
 				}
 				
 				
 			}else{
-			p=null;
+				System.out.println("holas dd");
+			
 			}			   
 		} catch (SQLException e) {
-			System.out.println("Error en la consulta de la mascota: "+e.getMessage());
+			System.out.println("Error en la consulta : "+e.getMessage());
 		}
 		finally {
 			statement.close();
@@ -213,5 +180,4 @@ public PersonasProductosVo consultarPersonaproducto(Long id_persona)throws SQLEx
 		}
 			return p;
 	}
-**/
 }

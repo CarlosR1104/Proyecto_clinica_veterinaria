@@ -75,9 +75,7 @@ public class ConsultarPersonas extends JDialog implements ActionListener{
 			ArrayList<PersonaVo> lista = miCoordinador.consultarPersonas();
 			ArrayList<Nacimiento>listaNacimiento=miCoordinador.consultarNacimiento();
 			
-			System.out.println("LISTA PERSONAS"+lista);
-			System.out.println("lista nbacimiento"+listaNacimiento);
-			System.out.println("iiii"+listaNacimiento);
+			
 			Lista(lista,listaNacimiento);
 		}
 	}

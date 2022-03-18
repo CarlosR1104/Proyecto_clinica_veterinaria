@@ -16,12 +16,9 @@ import controlador.Coordinador;
 import modelo.dao.PersonaProductoDao;
 
 public class VentanaConsultIndividual extends JDialog implements ActionListener {
+	
 	private JTextField txtDocumento;
-
-	private JButton btnConsultar, btnConsultarM, btnEliminarPersona, btnActualizar;
-
-	private JButton btnActualizarM, btnConsultarP, btnActualizarP;
-
+	private JButton btnConsultar, btnEliminarPersona;
 	private JPanel panel;
 	private JTextArea area;
 	private JScrollPane scroll;
@@ -89,6 +86,8 @@ public class VentanaConsultIndividual extends JDialog implements ActionListener 
 	public void actionPerformed(ActionEvent e) {
 		
 			if (e.getSource() == btnConsultar) {
+				try {
+					
 				PersonaVo p = miCoordinador.buscarPersona(Long.parseLong(txtDocumento.getText()));
 				if (p != null) {
 					Nacimiento n = miCoordinador.buscarNacimiento(p.getNacimiento().getIdNacimiento());
@@ -109,6 +108,13 @@ public class VentanaConsultIndividual extends JDialog implements ActionListener 
 					JOptionPane.showMessageDialog(null,
 							"Es posible que el numero este mal o no exista en la base de datos", "Nota",
 							JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null,
+							"Verifique el campo", "Nota",
+							JOptionPane.INFORMATION_MESSAGE);
+				
 				}
 
 			} else if (e.getSource() == btnEliminarPersona) {

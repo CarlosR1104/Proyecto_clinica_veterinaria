@@ -74,11 +74,11 @@ public class MascotaVo {
 
 	@Override
 	public String toString() {
-		return "Mascota[idMascota=" + idMascota + "\n"
-				+"nombre=" + nombre + "\n"
-				+"raza=" + raza +"\n"
-				+ "colorMascota="+ colorMascota +"\n" 
-				+"sexo=" + sexo + "\n"+
+		return "  ID " + idMascota + "\n"
+				+"  Nombre=" + nombre + "\n"
+				+"  Raza: " + raza +"\n"
+				+"  Color de Pelage: "+ colorMascota +"\n" 
+				+"  sexo: " + sexo + "\n"+
 				"Dueño "+Persona+"]";
 	}
 	

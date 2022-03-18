@@ -6,6 +6,8 @@ import gui.ConsultarPersonas;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
+import gui.VentanaActalizarProducto;
+import gui.VentanaActualizarMascota;
 import gui.VentanaActualizarPersona;
 import gui.VentanaConsultIndividual;
 import gui.VentanaEliminar;
@@ -38,7 +40,8 @@ public class Relaciones {
 		VentanaEliminarProductos miVentanaEliminarP;
 		PersonaProductoDao miPersonaProductoDao;
 		ConsultarPersonas consultarPersonas;
-		
+		VentanaActualizarMascota actualizarMascota;
+		VentanaActalizarProducto miVentanaActalizarProducto;
 		
 		
 		//Se instancian por unica ocasión las clases declaradas
@@ -52,13 +55,14 @@ public class Relaciones {
 		miRegistrarProductosGui= new RegistrarProductosGui(miVentanaPrincipal, true);
 		miVentanaEliminarP = new VentanaEliminarProductos();
 		consultarPersonas = new ConsultarPersonas();
-		
+		actualizarMascota=new VentanaActualizarMascota(miVentanaPrincipal, true);
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
 		miMascotaDao= new MascotaDao();
 		miNacimientoDao= new NacimientoDao();
 		miProductoDao= new ProductoDao();
 		miPersonaProductoDao= new PersonaProductoDao();
+		miVentanaActalizarProducto =new VentanaActalizarProducto(miVentanaPrincipal, true);
 		
 		
 		//Se establece la relación entre el coordinador y cada instancia unica
@@ -78,9 +82,12 @@ public class Relaciones {
 		miCoordinador.setVentanaEliminarP(miVentanaEliminarP);
 		miCoordinador.setMiPersonaProductoDao(miPersonaProductoDao);
 		miCoordinador.setConsultarPersonas(consultarPersonas);
+		miCoordinador.setActualizarMascota(actualizarMascota);
+		miCoordinador.setActalizarProducto(miVentanaActalizarProducto);
 	
 	
 		//A cada clase unica se le asigna la unica instancia del coordinador
+		actualizarMascota.setCoordinador(miCoordinador);
 		miVentanaPrincipal.setCoordinador(miCoordinador);
 		miVentanaActualizarPersona.setCoordinador(miCoordinador);
 		miVentanaConsultIndividual.setMiCoordinador(miCoordinador);
@@ -95,6 +102,7 @@ public class Relaciones {
 		miVentanaEliminarP.setCoordinador(miCoordinador);
 		miPersonaProductoDao.setCoordinador(miCoordinador);
 		consultarPersonas.setCoordinador(miCoordinador);
+		miVentanaActalizarProducto.setCoordinador(miCoordinador);
 		
 
 		//Se muestra la ventana principal.
