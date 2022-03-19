@@ -42,6 +42,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenuItem itemRegistroProductos;
 	private Coordinador miCoordinador;
 	private JMenuItem itemConsultaPersonas;
+	private JMenuItem itemConsultaMascotas;
+	private JMenuItem itemConsultarProductos;
 
 	/**
 	 * Create the frame.
@@ -141,6 +143,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		itemConsultaPersonas = new JMenuItem("Consultar Total");
 		itemConsultaPersonas.addActionListener(this);
 		menuPersonas.add(itemConsultaPersonas);
+		
+		itemConsultaMascotas = new JMenuItem("Consultar Total");
+		itemConsultaMascotas.addActionListener(this);
+		MenuMascotas.add(itemConsultaMascotas);
+		
+		itemConsultarProductos = new JMenuItem("Consultar Total");
+		itemConsultarProductos.addActionListener(this);
+		menuProductos.add(itemConsultarProductos);
 	}
 
 	@Override
@@ -185,6 +195,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 		if (e.getSource() == itemConsultaPersonas) {
 			miCoordinador.mostrarConsultarPersonas();
+		}
+		if (e.getSource() == itemConsultaMascotas) {
+			miCoordinador.mostrarConsultarMascotas();
+		}
+		if (e.getSource() == itemConsultarProductos) {
+			miCoordinador.mostrarConsultarProducto();
 		}
 	}
 

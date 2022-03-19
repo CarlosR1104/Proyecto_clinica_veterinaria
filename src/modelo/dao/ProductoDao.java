@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import VO.MascotaVo;
 import VO.Nacimiento;
@@ -198,6 +199,53 @@ public class ProductoDao {
 			resultado = "error";
 		}
 		return resultado;
+	}
+	
+	public ArrayList<ProductoVo> consultarListaProductos() throws SQLException {
+		ArrayList<ProductoVo> listaProducto = new ArrayList<ProductoVo>();
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		
+		ProductoVo miProducto=null;
+				
+		connection=miConexion.getConnection();
+		
+		String consulta = "SELECT id_producto, nombre_producto, precio_producto "+" FROM productos";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miProducto =new ProductoVo();
+					
+					miProducto.setIdProducto(result.getLong("id_producto"));
+					miProducto.setNombreProducto(result.getString("nombre_producto"));
+					miProducto.setPrecioProducto(result.getDouble("precio_producto"));
+					
+					
+					listaProducto.add(miProducto);
+					
+				}		
+				   miConexion.desconectar();
+			}else{
+				miProducto=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la persona: "+e.getMessage());
+		}
+		finally {
+			result.close();
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+
+		}
+			return listaProducto;
 	}
 
 

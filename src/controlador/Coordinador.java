@@ -9,7 +9,9 @@ import VO.Nacimiento;
 import VO.PersonaVo;
 import VO.PersonasProductosVo;
 import VO.ProductoVo;
+import gui.ConsultarMascotas;
 import gui.ConsultarPersonas;
+import gui.ConsultarProductos;
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -40,6 +42,8 @@ public class Coordinador {
 	VentanaEliminarProductos miVentanaEliminarP;
 	PersonaProductoDao miPersonaProductoDao;
 	ConsultarPersonas consultarPersonas;
+	ConsultarMascotas consultarMascotas;
+	ConsultarProductos consultarProductos;
 	
 
 	public void setMiPersonaProductoDao(PersonaProductoDao miPersonaProductoDao) {
@@ -99,6 +103,14 @@ public class Coordinador {
 	public void setConsultarPersonas(ConsultarPersonas consultarPersonas) {
 		this.consultarPersonas = consultarPersonas;
 	}
+	
+	public void setConsultarMascotas(ConsultarMascotas consultarMascotas) {
+		this.consultarMascotas = consultarMascotas;
+	}
+	
+	public void setConsultarProducto(ConsultarProductos consultarProductos) {
+		this.consultarProductos = consultarProductos;
+	}
 
 
 	public void mostrarRegistroPersonas() {
@@ -132,6 +144,14 @@ public class Coordinador {
 	
 	public void mostrarConsultarPersonas() {
 		consultarPersonas.setVisible(true);
+	}
+	
+	public void mostrarConsultarMascotas() {
+		consultarMascotas.setVisible(true);
+	}
+	
+	public void mostrarConsultarProducto() {
+		consultarProductos.setVisible(true);
 	}
 	
 
@@ -383,6 +403,26 @@ public class Coordinador {
 			return null;
 		}
 		
+	}
+	
+	public ArrayList<MascotaVo> consultarMascota() {
+		try {
+			ArrayList<MascotaVo> ListaMascotas = miMascotaDao.consultarListaMascotas();
+			return ListaMascotas;
+		} catch (Exception e) {
+			return null;
+		}
+	
+	}
+	
+	public ArrayList<ProductoVo> consultarProductos() {
+		try {
+			ArrayList<ProductoVo> ListaProductos =  miProductoDao.consultarListaProductos();
+			return ListaProductos;
+		} catch (Exception e) {
+			return null;
+		}
+	
 	}
 	
 }

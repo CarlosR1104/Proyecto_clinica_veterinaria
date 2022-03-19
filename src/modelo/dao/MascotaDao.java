@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import VO.MascotaVo;
 import VO.Nacimiento;
@@ -189,6 +190,55 @@ public class MascotaDao {
 			miConexion.desconectar();
 		}
 		return resultado;
+	}
+	
+	public ArrayList<MascotaVo> consultarListaMascotas() throws SQLException {
+		ArrayList<MascotaVo> listaMascotas = new ArrayList<MascotaVo>();
+		Connection connection=null;
+		Conexion miConexion=new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		
+		MascotaVo miMascota=null;
+				
+		connection=miConexion.getConnection();
+		
+		String consulta = "SELECT nombre, color, raza,sexo, persona_id"+" FROM mascotas";
+		
+		try {
+			if (connection!=null) {
+				statement=connection.prepareStatement(consulta);
+				result=statement.executeQuery();
+				
+				while(result.next()==true){
+					miMascota =new MascotaVo();
+					
+					miMascota.setNombre(result.getString("nombre"));
+					miMascota.setColorMascota(result.getString("color"));
+					miMascota.setRaza(result.getString("raza"));
+					miMascota.setSexo(result.getString("sexo"));
+					
+					
+					
+					listaMascotas.add(miMascota);
+					
+				}		
+				   miConexion.desconectar();
+			}else{
+				miMascota=null;
+			}			   
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta de la persona: "+e.getMessage());
+		}
+		finally {
+			result.close();
+			statement.close();
+			connection.close();
+			miConexion.desconectar();
+
+		}
+			return listaMascotas;
 	}
 
 	

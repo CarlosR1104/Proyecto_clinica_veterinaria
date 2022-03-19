@@ -35,8 +35,6 @@ public class ConsultarPersonas extends JDialog implements ActionListener{
 	private JButton btnConsultarPersonas;
 	private Coordinador miCoordinador;
 	private JScrollPane scroll;
-	private JTextField txtImprimir;
-	private JTextArea area;
 	
 	public ConsultarPersonas() {
 		
